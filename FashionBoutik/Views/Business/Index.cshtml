@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Business style";
+
+    List<string> images = new List<string>();
+    String path = Server.MapPath("~/css/images/business");
+    if (Directory.Exists(path))
+    {
+        var files = Directory.GetFiles(path);
+        foreach (var file in files)
+        {
+            var fileName = Path.GetFileName(file);
+            images.Add("/css/images/business/" + fileName);
+        }
+    }
+}
+
+<style>
+    .slide {
+        width: 100px;
+        overflow: hidden;
+        display: block;
+    }
+
+    ul.slider.horizontal {
+        left: 40px;
+        position: relative;
+        height: 500px;
+    }
+</style>
+
+<div>
+    <ul class="slider horizontal" >
+        @foreach (var i in images)
+        {
+            <li id="slide" class="slide" >
+                <img src="@i" alt="slide">
+            </li>
+        }
+    </ul>
+</div>

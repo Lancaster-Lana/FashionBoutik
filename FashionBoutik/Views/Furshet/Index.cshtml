@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Furshet style";
+
+    List<string> images = new List<string>();
+    String path = Server.MapPath("~/css/images/furshet");
+    if (Directory.Exists(path))
+    {
+        var files = Directory.GetFiles(path);
+        foreach (var file in files)
+        {
+            var fileName = Path.GetFileName(file);
+            images.Add("/css/images/furshet/" + fileName);
+        }
+    }
+}
+
+<div class="carousel">
+    <div class="slides">
+        @foreach (var i in images)
+        {
+            <div>
+                <a href="#">
+                    <img src="@i" />
+                </a>
+            </div>
+        }
+    </div>
+</div>

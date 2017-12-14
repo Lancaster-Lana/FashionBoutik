@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Season style";
+
+    List<string> images = new List<string>();
+    String path = Server.MapPath("~/css/images/season");
+    if (Directory.Exists(path))
+    {
+        var files = Directory.GetFiles(path);
+        foreach (var file in files)
+        {
+            var fileName = Path.GetFileName(file);
+            images.Add("/css/images/season/" + fileName);
+        }
+    }
+}
+
+<div class="theme-orman img-responsive">
+    <div id="slider" class="nivoSlider">
+        @foreach (var i in images)
+        {
+          <img src="@i" alt="season" rel="@i" />
+        }
+      </div>
+    <div class="carousel-caption" role="option"> </div>
+</div>
