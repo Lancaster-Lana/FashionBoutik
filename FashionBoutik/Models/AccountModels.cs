@@ -3,7 +3,6 @@ using System.Web.Mvc;
 
 namespace FashionBoutik.Models
 {
-
     public class ChangePasswordModel
     {
         [Required]

@@ -15,6 +15,20 @@
     }
 }
 
+<!-- Carosel slider-->
+@section Styles
+{
+    <link href="~/css/carousel.css" rel="stylesheet" />
+}
+
+@section Scripts
+{
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.carousel.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/carosel-usage.js" ></script>
+}
+
 <div class="carousel">
     <div class="slides">
         @foreach (var i in images)

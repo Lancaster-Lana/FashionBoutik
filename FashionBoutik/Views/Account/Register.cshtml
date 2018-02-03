@@ -1,10 +1,9 @@
 ﻿@model FashionBoutik.Models.RegisterModel
 
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Register a new user";
 }
 <section class="content">
-<h2>Create a New Account</h2>
 <p>
     Use the form below to create a new account. 
 </p>
@@ -17,26 +16,17 @@
  
         <fieldset>
             <legend>Account Information</legend>
-         
-         
                 @Html.LabelFor(m => m.UserName)
-         
-            
                 @Html.TextBoxFor(m => m.UserName, new { required = "required",placeholder="User Name" })
                 @Html.ValidationMessageFor(m => m.UserName)
           
             <br>
-          
-                @Html.LabelFor(m => m.Email)
-         
+                @Html.LabelFor(m => m.Email)       
                 @Html.TextBoxFor(m => m.Email, new { type="email", required="required",placeholder="Email"})
                 @Html.ValidationMessageFor(m => m.Email)
             <br>
 
-         
                 @Html.LabelFor(m => m.Password)
-           
-        
                 @Html.PasswordFor(m => m.Password, new { type = "password", required = "required", placeholder = "Password" })
                 @Html.ValidationMessageFor(m => m.Password)
          <br>

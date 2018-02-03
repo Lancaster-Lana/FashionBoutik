@@ -3,7 +3,6 @@ using System.Web.Mvc;
 
 namespace FashionBoutik.Models
 {
-
     public class SeasonModel
     {
         [Required]
@@ -22,5 +21,4 @@ namespace FashionBoutik.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
-
 }
