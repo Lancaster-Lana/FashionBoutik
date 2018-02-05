@@ -88,5 +88,11 @@
     "inputFiles": [
       "Scripts/prettify.js"
     ]
+  },
+  {
+    "outputFileName": "css/nivo-theme.min.css",
+    "inputFiles": [
+      "css/nivo-theme.css"
+    ]
   }
 ]

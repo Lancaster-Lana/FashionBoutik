@@ -10,6 +10,7 @@
     <link href="@Url.Content("~/css/full_screen_preview.min.css")" rel="stylesheet" />
     <link href="@Url.Content("~/css/prettify.min.css")" rel="stylesheet" />
 
+    @*For social buttons*@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
 </head>
@@ -27,7 +28,6 @@
                 <li>@Html.ActionLink("Business style", "Index", "Business")</li>
                 <li>@Html.ActionLink("Furshet style", "Index", "Furshet")</li>
                 <li>@Html.ActionLink("Season clothes", "Index", "Season")</li>
-                @*<li>@Html.ActionLink("Sport fashion", "Index", "Sport")</li>*@
                 <li>@Html.ActionLink("About", "About", "Home")</li>
             </ul>
         </nav>
@@ -38,7 +38,7 @@
     </div>
 
     <footer>
-        <h4 class="text-center">@Html.Raw(string.Format("{0} {1} {2}", "&copy;", DateTime.Now.Year, "lana-soft.com"))</h4>
+        <h4 class="text-center">@Html.Raw(string.Format("{0} {1} {2}", "lana-soft", "&copy;", DateTime.Now.Year))</h4>
     </footer>
 
     <script src="~/Scripts/jquery.js"></script>
