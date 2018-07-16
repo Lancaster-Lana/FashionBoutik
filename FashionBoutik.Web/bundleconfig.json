@@ -1,0 +1,255 @@
+[
+  {
+    "outputFileName": "wwwroot/bundles/libs.css",
+    "inputFiles": [
+      "wwwroot/lib/sweetalert/dist/sweetalert.css",
+
+      "wwwroot/lib/bootstrap-colorpicker/css/bootstrap-colorpicker.css",
+      "wwwroot/lib/bootstrap-select/css/bootstrap-select.css",
+      "wwwroot/lib/multi-select/css/multi-select.css",
+
+      "wwwroot/lib/jquery-filedrop/upload.css",
+      "wwwroot/lib/dropzone/dropzone.css",
+
+      "wwwroot/lib/datatables/datatables.css",
+      "wwwroot/lib/datatables/colReorder.bootstrap.css",
+
+      "wwwroot/lib/jqwidgets/css/jqx.base.css",
+      "wwwroot/lib/jqwidgets/css/jqx.arctic.css"
+
+    ],
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/bundles/libs.min.css",
+    "inputFiles": [
+      "wwwroot/lib/sweetalert/dist/sweetalert.css",
+
+      "wwwroot/lib/bootstrap-colorpicker/css/bootstrap-colorpicker.css",
+      "wwwroot/lib/bootstrap-select/css/bootstrap-select.css",
+      "wwwroot/lib/multi-select/css/multi-select.css",
+
+      "wwwroot/lib/jquery-filedrop/upload.css",
+      "wwwroot/lib/dropzone/dropzone.css",
+
+      "wwwroot/lib/datatables/datatables.css",
+      "wwwroot/lib/datatables/colReorder.bootstrap.css",
+
+      "wwwroot/lib/jqwidgets/css/jqx.base.css",
+      "wwwroot/lib/jqwidgets/css/jqx.arctic.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/bundles/libs.js",
+    "inputFiles": [
+      //"wwwroot/lib/jquery/dist/jquery.js",
+      //"wwwroot/lib/bootstrap/dist/js/bootstrap.js",
+
+      "wwwroot/lib/sweetalert/dist/sweetalert.min.js",
+
+      "wwwroot/lib/bootstrap-colorpicker/js/bootstrap-colorpicker.js",
+      "wwwroot/lib/bootstrap-select/js/bootstrap-select.js",
+      "wwwroot/lib/multi-select/js/jquery.multi-select.js",
+
+      "wwwroot/lib/jquery-filedrop/core.js",
+      "wwwroot/lib/jquery-filedrop/upload.js",
+      "wwwroot/lib/jquery-slimscroll/jquery.slimscroll.js",
+
+      "wwwroot/lib/dropzone/dropzone-amd-module.js",   
+      "wwwroot/lib/dropzone/dropzone.js",
+
+      "wwwroot/lib/datatables/datatables.js",
+      "wwwroot/lib/datatables/dataTables.colReorder.js",
+
+      "wwwroot/lib/jqwidgets/js/format.js",
+      "wwwroot/lib/jqwidgets/js/jqxcore.js",
+      "wwwroot/lib/jqwidgets/js/jqxdata.js",
+      "wwwroot/lib/jqwidgets/js/jqxbuttons.js",
+      "wwwroot/lib/jqwidgets/js/jqxscrollbar.js",
+      "wwwroot/lib/jqwidgets/js/jqxgrid.js",
+      "wwwroot/lib/jqwidgets/js/jqxgrid.columnsresize.js",
+      "wwwroot/lib/jqwidgets/js/jqxlistbox.js",
+      "wwwroot/lib/jqwidgets/js/jqxdropdownlist.js",
+      "wwwroot/lib/jqwidgets/js/jqxdragdrop.js",
+      "wwwroot/lib/jqwidgets/js/demofunctions.js",
+      "wwwroot/lib/jqwidgets/js/swipe.js",
+      "wwwroot/lib/jqwidgets/js/svgeezy.min.js"
+    ],
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/bundles/libs.min.js",
+    "inputFiles": [
+      //"wwwroot/lib/jquery/dist/jquery.js",
+      //"wwwroot/lib/bootstrap/dist/js/bootstrap.js",
+
+      "wwwroot/lib/sweetalert/dist/sweetalert.min.js",
+
+      "wwwroot/lib/bootstrap-colorpicker/js/bootstrap-colorpicker.js",
+      "wwwroot/lib/bootstrap-select/js/bootstrap-select.js",
+      "wwwroot/lib/multi-select/js/jquery.multi-select.js",
+
+      "wwwroot/lib/jquery-filedrop/core.js",
+      "wwwroot/lib/jquery-filedrop/upload.js",
+      "wwwroot/lib/jquery-slimscroll/jquery.slimscroll.js",
+
+      "wwwroot/lib/dropzone/dropzone-amd-module.js",
+      "wwwroot/lib/dropzone/dropzone.js",
+
+      "wwwroot/lib/datatables/datatables.js",
+      "wwwroot/lib/datatables/dataTables.colReorder.js",
+
+      "wwwroot/lib/jqwidgets/js/format.js",
+      "wwwroot/lib/jqwidgets/js/jqxcore.js",
+      "wwwroot/lib/jqwidgets/js/jqxdata.js",
+      "wwwroot/lib/jqwidgets/js/jqxbuttons.js",
+      "wwwroot/lib/jqwidgets/js/jqxscrollbar.js",
+      "wwwroot/lib/jqwidgets/js/jqxgrid.js",
+      "wwwroot/lib/jqwidgets/js/jqxgrid.columnsresize.js",
+      "wwwroot/lib/jqwidgets/js/jqxlistbox.js",
+      "wwwroot/lib/jqwidgets/js/jqxdropdownlist.js",
+      "wwwroot/lib/jqwidgets/js/jqxdragdrop.js",
+      "wwwroot/lib/jqwidgets/js/demofunctions.js",
+      "wwwroot/lib/jqwidgets/js/swipe.js",
+      "wwwroot/lib/jqwidgets/js/svgeezy.min.js"
+    ]
+  },
+
+    {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/adminSite.min.css",
+    "inputFiles": [
+      "wwwroot/css/adminSite.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/bundles/fonts.css",
+    "inputFiles": [
+      "wwwroot/fonts/font-awesome/font-awesome.css",
+      "wwwroot/fonts/material-design/material-design.css",
+      "wwwroot/fonts/glyphicons/glyphicons.css"
+    ],
+    "minify": {
+      "enabled": false
+    }
+  },
+  {
+    "outputFileName": "wwwroot/bundles/fonts.min.css",
+    "inputFiles": [
+      "wwwroot/fonts/font-awesome/font-awesome.css",
+      "wwwroot/fonts/material-design/material-design.css",
+      "wwwroot/fonts/glyphicons/glyphicons.css"
+    ]
+  },
+
+
+  {
+    "outputFileName": "wwwroot/css/kwicks.accordion.min.css",
+    "inputFiles": [
+      "wwwroot/css/kwicks.accordion.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/jquery.mousewheel.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery.mousewheel.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/nivo-slider.min.css",
+    "inputFiles": [
+      "wwwroot/css/nivo-slider.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/nivo-theme.min.css",
+    "inputFiles": [
+      "wwwroot/css/nivo-theme.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/jquery.nivo.slider.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery.nivo.slider.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/jquery.lightbox.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery.lightbox.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/jquery.kwicks-1.5.1.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery.kwicks-1.5.1.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/custom-team.min.js",
+    "inputFiles": [
+      "wwwroot/js/custom-team.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/full_screen_preview.min.css",
+    "inputFiles": [
+      "wwwroot/css/full_screen_preview.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/carousel.min.css",
+    "inputFiles": [
+      "wwwroot/css/carousel.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/carosel-usage.min.js",
+    "inputFiles": [
+      "wwwroot/js/carosel-usage.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/orman.min.css",
+    "inputFiles": [
+      "wwwroot/css/orman.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/prettify.min.css",
+    "inputFiles": [
+      "wwwroot/css/prettify.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/prettify.min.js",
+    "inputFiles": [
+      "wwwroot/js/prettify.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/productImageAttachments.min.js",
+    "inputFiles": [
+      "wwwroot/js/productImageAttachments.js"
+    ]
+  }
+]

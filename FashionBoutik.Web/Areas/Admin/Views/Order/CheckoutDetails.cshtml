@@ -1,0 +1,38 @@
+﻿@*<div class="navbar bg-inverse ">
+    <a class="navbar-brand text-white"> STORE</a>
+</div>*@
+@model List<CartItemModel>
+@using FashionBoutik.Models
+
+@{
+    Layout = "_CheckoutLayout";
+}
+
+<h2 class="text-center mt-1">Step 1: Your Details</h2>
+
+<form  method="post"
+      asp-area="Admin" asp-controller="Order" asp-action="Checkout">
+    <div class="form-group">
+        <label>Name</label>
+        <input #name="ngModel" name="name" class="form-control"
+               [(ngModel)]="order.name" required />
+        <div *ngIf="name.invalid" class="text-danger">
+            Please enter your name
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Address</label>
+        <input #address="ngModel" name="street" class="form-control"
+               [(ngModel)]="order.address" required />
+        <div *ngIf="address.invalid" class="text-danger">
+            Please enter your address
+        </div>
+    </div>
+    <div class="text-center btn-group btn-group-lg">
+        <a onclick="history.go(-1);">Back</a>
+        @*<button class="btn btn-outline-primary" routerLink="/cart">Back</button>*@
+        <button class="btn btn-danger" type="submit" [disabled]="detailsForm.invalid">
+            Next
+        </button>
+    </div>
+</form>

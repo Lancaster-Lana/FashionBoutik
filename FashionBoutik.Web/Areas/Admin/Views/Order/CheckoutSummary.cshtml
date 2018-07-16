@@ -1,0 +1,23 @@
+@model OrderModel
+@using FashionBoutik.Models
+
+<div class="bs-container">
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>@Model.ShippingAddress</td>
+        </tr>
+        <tr>
+            <th>Products</th>
+            <td>@Model.OrderItems.Count</td>
+        </tr>
+        <tr>
+            <th>Total Price</th>
+            <td>@Model.Total | currency:USD:true }}</td>
+        </tr>
+    </table>
+</div>

@@ -1,0 +1,62 @@
+﻿<!-- Carosel slider-->
+@section Styles
+{
+    <link href="~/css/carousel.min.css" rel="stylesheet" />
+}
+
+@section Scripts
+{
+    @*<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"></script>*@
+
+    <script src="~/js/jquery.mousewheel.min.js" type="text/javascript"></script>
+    <script src="~/js/jquery.carousel.min.js" type="text/javascript"></script>
+    <script src="~/js/carosel-usage.js" type="text/javascript"></script>
+    <script src="~/js/jquery.easing.1.3.min.js" type="text/javascript"></script>
+}
+
+@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv
+@{
+    ViewBag.Title = "Furshet style";
+
+    Dictionary<string, string> images = new Dictionary<string, string>();
+    //var images = new List<string>();
+    //String path = Server.MapPath("~/css/images/business");
+    var webRoot = hostingEnv.WebRootPath;
+    string path = System.IO.Path.Combine(webRoot, "css/images/furshet");
+
+    if (System.IO.Directory.Exists(path))
+    {
+        var files = System.IO.Directory.GetFiles(path);
+        foreach (var file in files)
+        {
+            var name = System.IO.Path.GetFileNameWithoutExtension(file);
+            var filePath = "/css/images/furshet/" + System.IO.Path.GetFileName(file);
+            if (!images.Keys.Contains(name))
+            {
+                images.Add(name, filePath);
+            }
+        }
+    }
+}
+
+<div class="carousel">
+    <div class="slides">
+        @foreach (var i in images)
+        {
+            <div class="slide draggable-demo-product jqx-rc-all jqx-draggable">
+                <div class="draggable-demo-product-header jqx-widget-header-light">
+                    <div class="draggable-demo-product-header-label"> @i.Key</div>
+                </div>
+                <div class="icon-plus-overlay">
+                    <div class="icon-overlay-text">
+                        <div class="draggable-demo-product-price">
+                            Price: <strong>$12</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <img src="@i.Value" alt="season" class="jqx-rc-b">
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,84 @@
+﻿@model LoginViewModel
+@using FashionBoutik.Models.AccountViewModels
+
+@using FashionBoutik.Entities
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<User> SignInManager
+@{
+    ViewData["Title"] = "Log in";
+    var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+    ViewBag.Title = "Login";
+}
+
+<div class="row">
+    <section class="col-sm-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Login with a local account</div>
+            <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+
+                <div class="form-group">
+                    <label asp-for="UserName" class="col-sm-4 control-label"></label>
+                    <div class="col-sm-6">
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="col-sm-4 control-label"></label>
+                    <div class="col-sm-6">
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RememberMe" class="col-sm-4 control-label"></label>
+                    <div class="col-offset-2 col-sm-6 text-left">
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "checkbox" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">Log in</button>
+                        <a asp-action="ForgotPassword" class="text-center">Cannot login (forgot password)?</a>
+                        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" class="alert-success">Register as a new user</a>
+                    </div>
+                </div>
+
+                <div asp-validation-summary="All" asp-error-msg class="text-danger"></div>
+            </form>
+        </div>
+    </section>
+    <section class="col-sm-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Login with a social network </div>
+            @if (loginProviders.Count == 0)
+            {
+                <div>
+                    <p>
+                        There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                        for details on setting up this ASP.NET application to support logging in via external services.
+                    </p>
+                </div>
+            }
+            else
+            {
+                <form method="post" asp-antiforgery="true"  asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]">
+                    <div class="">
+
+                        @foreach (var provider in loginProviders)
+                        {
+                            <button type="submit" class="btn btn-social btn-@provider.Name.ToLower()" name="provider" value="@provider.Name">
+                                <i class="fa fa-@provider.Name.ToLower()"></i>  @provider.DisplayName
+                            </button>
+                        }
+                        @*<script src="https://apis.google.com/js/platform.js" async defer></script>
+                        <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+                        <div class="g-signin2" data-onsuccess="onSignIn"></div>*@
+                    </div>
+                </form>
+            }
+        </div>
+    </section>
+</div>

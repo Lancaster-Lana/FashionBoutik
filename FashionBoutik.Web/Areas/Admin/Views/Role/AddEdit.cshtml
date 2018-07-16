@@ -1,0 +1,35 @@
+﻿@model RoleViewModel
+@using FashionBoutik.Models
+
+@using (Html.BeginForm("AddEdit", "Role", new { area = "Admin", controller = "Role" }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
+{
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = $"{(Model.Id < 1 ? "Add" : "Edit")} Role" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @if (@ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            <i class="fa fa-warning"></i> @ViewBag.ErrorMessage
+        </div>
+    }
+    <div class="modal-body form-horizontal">
+        <div class="row">
+            <div class="form-group">
+                @Html.HiddenFor(m => m.Id )
+                <label asp-for="Name" class="col-lg-3 col-sm-3 control-label">Role Name</label>
+                <div class="col-lg-6 col-sm-6">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="col-lg-3 col-sm-3 control-label">Description</label>
+                <div class="col-lg-6 col-sm-6">
+                    <textarea rows="3" asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter {SubmitButtonText = "Save" })
+}

@@ -1,0 +1,9 @@
+G:\GroupsWeb\Groups.EntityFramework\bin\Debug\netcoreapp2.0\Groups.EntityFramework.deps.json
+G:\GroupsWeb\Groups.EntityFramework\bin\Debug\netcoreapp2.0\Groups.EntityFramework.dll
+G:\GroupsWeb\Groups.EntityFramework\bin\Debug\netcoreapp2.0\Groups.EntityFramework.pdb
+G:\GroupsWeb\Groups.EntityFramework\obj\Debug\netcoreapp2.0\Groups.EntityFramework.csprojResolveAssemblyReference.cache
+G:\GroupsWeb\Groups.EntityFramework\obj\Debug\netcoreapp2.0\Groups.EntityFramework.csproj.CoreCompileInputs.cache
+G:\GroupsWeb\Groups.EntityFramework\obj\Debug\netcoreapp2.0\Groups.EntityFramework.AssemblyInfoInputs.cache
+G:\GroupsWeb\Groups.EntityFramework\obj\Debug\netcoreapp2.0\Groups.EntityFramework.AssemblyInfo.cs
+G:\GroupsWeb\Groups.EntityFramework\obj\Debug\netcoreapp2.0\Groups.EntityFramework.dll
+G:\GroupsWeb\Groups.EntityFramework\obj\Debug\netcoreapp2.0\Groups.EntityFramework.pdb

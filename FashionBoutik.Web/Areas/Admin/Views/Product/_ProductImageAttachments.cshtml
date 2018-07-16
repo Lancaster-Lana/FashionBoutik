@@ -1,0 +1,54 @@
+﻿@model ProductModel
+@using FashionBoutik.Models
+
+<div>
+    <input type="hidden" id="productId" name="productId" value="@Model.Id" />
+
+    @*@if (await PermissionChecker.IsGrantedAsync(editPermission))*@
+    <!--Old uploader (without D&D)-->
+    @*<button class="btn file-upload btn-file margin-0 waves-light">
+            <input type="file" name="spf-files" multiple />
+        </button>
+        <input type="button" id="btnProductFileUpload" value="Upload" class="upload-productAttachedFile btn btn-primary" />*@
+
+    <!--List of attached\uploaded files, with menu add\remove\download -->
+    <div id="attachmentsList" class="margin-top-20">
+        @if (Model != null)
+        {
+            @Html.Partial("~/Areas/Admin/Views/Product/_ProductImageAttachmentsList.cshtml", Model)
+        }
+    </div>
+
+    @*@if (await PermissionChecker.IsGrantedAsync(editPermission))*@
+
+    <!--Drag & Drop area to drag file from desktop or choose from folder -->
+
+    <div class="margin-top-20 dropzone dz-clickable">
+        <div class="upload fs-upload-element fs-upload fs-light">
+            @*<div class="dz-message">
+                <div class="drag-icon-cph">
+                    <i class="material-icons">touch_app</i>
+                </div>
+            </div>*@
+        </div>
+        <!-- LIST of attached images -->
+        <div class="filelists">
+            @*<h5> Queued files (processing)</h5>*@
+            <ol class="filelist queue"></ol>
+            @*<h5>Complete</h4>*@
+            <ol class="filelist complete" style="display: none;"></ol>
+            @*<span class="cancel_all">Cancel All</span>*@
+        </div>
+    </div>
+
+    @*<form id="frmFileUpload" class="dropzone dz-clickable" method="post" action="/Admin/Product/UploadAttachedFiles?productId=@Model?.Id" >
+            <div class="dz-message">
+                <div class="drag-icon-cph">
+                    <i class="material-icons">touch_app</i>
+                </div>
+                <h3>Drop files here or click to upload.</h3>
+                <em>(This is just a demo dropzone. Selected files are <strong>not</strong> actually uploaded.)</em>
+            </div>
+
+        </form>*@
+</div>

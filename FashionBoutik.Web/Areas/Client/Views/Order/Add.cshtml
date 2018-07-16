@@ -1,0 +1,52 @@
+﻿@model ProductModel
+@using FashionBoutik.Models
+
+@{
+    Layout = null;
+}
+@using (Html.BeginForm("Add", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="modal-header alert alert-info">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">New Product</h4>
+    </div>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @if (@ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            <i class="fa fa-warning"></i> @ViewBag.ErrorMessage
+        </div>
+    }
+
+    <div class="modal-body form-horizontal">
+        <div class="row">
+            <div class="form-group col-md-12 col-sm-12">
+                <label asp-for="Name" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-9 col-sm-9">
+                    <input asp-for="Name" class="form-control" />
+                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-12 col-sm-12">
+                <label asp-for="Description" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-9 col-sm-9">
+                    <input asp-for="Description" class="form-control" />
+                    @Html.ValidationMessageFor(m => m.Description, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-12 col-sm-12">
+                <label asp-for="Attachments" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-9 col-sm-9">
+                    <input asp-for="Attachments" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-success" type="submit">Save </button>
+        <button data-dismiss="modal" id="btnCancel" class="btn btn-default" type="button">Cancel</button>
+    </div>
+}

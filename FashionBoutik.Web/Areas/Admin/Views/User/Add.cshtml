@@ -1,0 +1,94 @@
+﻿@model UserViewModel
+@using Microsoft.AspNetCore.Identity
+@using FashionBoutik.Models
+@using FashionBoutik.Entities
+
+@inject RoleManager<Role> RoleManager
+@{
+    var allRoles = Model.ApplicationRoles ?? RoleManager.Roles.ToList();
+    var allUsersGroups = Model.UsersGroups;// ?? todo;
+}
+
+@using (Html.BeginForm("Add", "User", new { area = "Admin", controller = "User" }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
+{
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Add User" })
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @if (@ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            <i class="fa fa-warning"></i> @ViewBag.ErrorMessage
+        </div>
+    }
+
+    <div class="modal-body form-horizontal">
+        <div class="row">
+            @*<div asp-validation-summary="All"  class="text-danger"></div>*@
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Name" class="col-md-3 col-sm-3 control-label"></label>
+                    <div class="col-md-6">
+                        <input asp-for="Name" class="form-control" />
+                        @*@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })*@
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="col-md-3 col-sm-3 control-label"></label>
+                    <div class="col-md-6">
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ApplicationRoleId" class="col-md-3 col-sm-3 control-label"></label>
+                    <div class="col-md-6">
+                        <select class="form-control" data-val="true" data-val-required="The Role is required (*)"
+                                asp-for="ApplicationRoleId" asp-items="@(new SelectList(allRoles,"Id","Name"))"></select>
+                        <span asp-validation-for="ApplicationRoleId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UsersGroupId" class="col-md-3 col-sm-3 control-label"></label>
+                    <div class="col-md-6">
+                        <select class="form-control" data-val="true" data-val-required="The UsersGroup is required (*)"
+                                asp-for="UsersGroupId" asp-items="@(new SelectList(allUsersGroups,"Id","Name"))"></select>
+                        <span asp-validation-for="UsersGroupId" class="field-validation-error  text-danger"
+                              data-valmsg-for="UsersGroupId"
+                              data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="UserName" class="col-md-3 col-sm-3 control-label"></label>
+                    <div class="col-md-6">
+                        <input asp-for="UserName" class="form-control" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="col-md-3 col-sm-3 control-label"></label>
+                    <div class="col-md-6">
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        @*<span class="field-validation-error text-danger"
+                            data-valmsg-for="Password"
+                            data-valmsg-replace="true">req(*)</span>*@
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmPassword" class="col-md-3 col-sm-3 control-label"></label>
+                    <div class="col-md-6">
+                        <input asp-for="ConfirmPassword" class="form-control" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { SubmitButtonText = "Create" })
+}

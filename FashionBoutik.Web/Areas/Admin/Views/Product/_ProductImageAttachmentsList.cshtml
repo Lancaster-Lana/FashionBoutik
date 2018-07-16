@@ -1,0 +1,88 @@
+﻿@model ProductModel
+@using FashionBoutik.Models
+
+@if (Model.Attachments != null && Model.Attachments.Any())
+{
+    var attachedFiles = Model.Attachments/*?.OrderBy(a => a.CreatedDate)*/.ToList();
+
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+        <ol class="carousel-indicators">
+            @for (int i = 0; i < attachedFiles.Count() - 1; i++)
+            {
+                <li data-target="#myCarousel" data-slide-to="@i"></li>
+            }
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            @foreach (var attachedFile in attachedFiles)
+            {
+            <div class="item center-block icon-plus-overlay">
+                <figure class="icon-plus-overlay">
+                    <ul class="nav text-center">
+                        <!-- menu to Preview\DownLoad\Delete attachment-->
+                        <li class="dropdown">
+                            @*<a class="dropdown-toggle" href="#" data-toggle="dropdown"> @attachedFile.Name</a>*@  
+                            <button class="dropdown-toggle waves-light" data-toggle="dropdown" aria-expanded="false">
+                                <span data-tooltip="true" data-placement="top" data-trigger="hover" title="More">
+                                    @attachedFile.Name<i class="img-circle " aria-hidden="true"></i>...
+                                </span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                <li role="presentation">
+                                    <a target="_blank" href="/Admin/Product/ViewAttachedFile?productId=@Model.Id&fileId=@attachedFile.Id" role="menuitem"
+                                       data-id="@attachedFile.Id" class="preview-productAttachedImage waves-light">
+                                        <i class="fa fa-eye " aria-hidden="true"></i> Preview
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="/Admin/Product/DownloadAttachedFile?productId=@Model.Id&fileId=@attachedFile.Id" role="menuitem"
+                                       data-id="@attachedFile.Id" class="download-productAttachedFile waves-light">
+                                        <i class="fa fa-download" aria-hidden="true"></i> Download
+                                    </a>
+                                </li>
+
+                                <li role="presentation">
+                                    <a href="#" role="menuitem" data-id="@attachedFile.Id" data-value="@attachedFile.Name" class="delete-productAttachedFile waves-light">
+                                        <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </li>
+                    </ul>
+                    <!-- Preview images panel -->
+                    <img class="img-responsive product-image-sm" alt="@attachedFile.Name" 
+                         src="data:image;base64,@Convert.ToBase64String(attachedFile.Bytes)"/>
+
+                    <footer class="icon-overlay-text">
+                       
+                        <label class="secondary-grey">added by <strong> @attachedFile.CreatorUser?.UserName </strong> </label>
+                        @if (@attachedFile.CreatedDate.Year > 1900)
+                        {
+                            <label class="secondary-grey"> @String.Format("{0:MMM d, yyyy HH:mm}", @attachedFile.CreatedDate)</label>
+                        }
+                        @*<a class="btn btn-default" href="/product/attachedFile">
+                               Learn More
+                        </a>*@
+
+                    </footer>
+                </figure>
+            </div>
+            }
+        </div>
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Prev</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+}
+
+<script>
+    $(function () {
+        $('.carousel-inner > .item:first-of-type').addClass("active");
+    });
+</script>

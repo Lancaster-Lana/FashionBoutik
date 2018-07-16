@@ -1,0 +1,26 @@
+﻿@model UsersGroupModel
+@using FashionBoutik.Models
+
+<form method="post" role="form"
+      asp-area="Admin" asp-controller="UsersGroup" asp-action="AddEdit" asp-route-id="@Model.Id">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = $"{(Model.Id > 0 ? "Edit" : "Add")} User group " })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="modal-body form-horizontal">
+        <div class="row">
+            <div class="form-group">
+                <label asp-for="Name" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-6">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-6">
+                    <input asp-for="Description" class="form-control " />
+                </div>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { })
+</form>

@@ -1,0 +1,82 @@
+﻿@section Styles
+    {
+    <link href="~/css/nivo-slider.min.css" rel="stylesheet" />
+    <link href="~/css/nivo-theme.min.css" rel="stylesheet" />
+}
+
+@section Scripts
+    {
+    @*<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>*@
+
+    @*<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"></script>*@
+
+    <script src="~/js/jquery.nivo.slider.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+
+            //Call nivoSlider for each section
+            $('.nivoSlider').each(function (i, sl) {
+                $(sl).nivoSlider({
+                    controlNavThumbs: true,
+                    controlNavThumbsFromRel: true,
+                    directionNav: false, // Next and Prev
+                    keyboardNav: true, // Use left and right arrows
+                    pauseOnHover: true // Stop animation while hovering
+                });
+
+                //attach change image
+                $('.nivoSlider').on('change', 'img', function () {
+                    //$(this).addClass('draggable-demo-product');
+                    alert(this);
+                });
+
+            });
+        });
+    </script>
+}
+
+
+@inject Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnv
+@{
+    ViewBag.Title = "Season style";
+
+    Dictionary<string, string> images = new Dictionary<string, string>();
+    // var images = new List<string>();
+    //String path = Server.MapPath("~/css/images/business");
+    var webRoot = hostingEnv.WebRootPath;
+    string path = System.IO.Path.Combine(webRoot, "css/images/season");
+
+    if (System.IO.Directory.Exists(path))
+    {
+        var files = System.IO.Directory.GetFiles(path);
+        foreach (var file in files)
+        {
+            var fileName = System.IO.Path.GetFileName(file);
+            images.Add(fileName, "/css/images/season/" + fileName);
+        }
+    }
+}
+
+<div class="theme-orman img-responsive  draggable-demo-product jqx-rc-all jqx-draggable ">
+
+    <div id="slider" class="nivoSlider">
+        @foreach (var i in images)
+        {
+            <div class="">
+                @*<div class=" draggable-demo-product-header ">
+                        <div class="draggable-demo-product-header-label"> @i.Key</div>
+                    </div>
+                    <div class="icon-plus-overlay">
+                        <div class="icon-overlay-text">
+                            <div class="draggable-demo-product-price">
+                                Price: <strong>$12</strong>
+                            </div>
+                        </div>
+                    </div>*@
+                <img src="@i.Value" title="@i.Key" rel="@i.Value" alt="season" class="jqx-rc-b">
+            </div>
+        }
+    </div>
+    @*<div class="carousel-caption" role="option"> </div>*@
+</div>

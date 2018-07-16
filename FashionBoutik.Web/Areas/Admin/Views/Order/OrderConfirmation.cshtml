@@ -1,0 +1,38 @@
+﻿@model CartModel
+@using FashionBoutik.Models
+@{
+    Layout = "_CheckoutLayout";
+}
+
+<h2 class="text-center">Order Confirmation</h2>
+
+<form method="post"
+      asp-area="Admin" asp-controller="Order" asp-action="OrderConfirmation">
+    <div class="container">
+        <!-- Display order summary -->
+        <div class="text-center">
+            @Html.Partial("CheckoutSummary", new OrderModel() {
+                OrderItems = @Model.CartItems
+              })
+        </div>
+
+        @*<div class="alert-success">
+            @await Html.PartialAsync("GiftCards", @Model)
+        </div>
+
+        <div class="alert-info">
+            @await Html.PartialAsync("CalculateDiscounts", @Model)
+        </div>*@
+
+        @*<div class="progress-bar-info" />*@
+
+        <div class="btn btn-group btn-group-sm">
+            @*<button class="btn btn-primary" routerLink="/">Done</button>*@
+            <button type="submit" class="btn btn-success">Done</button>
+            <!-- if cancel -->
+            <a onclick="history.go(-1);" class="btn-link">Back</a>
+            <a asp-area="Admin" asp-controller="Order" asp-action="CheckoutCancel" class="btn btn-danger">Cancel</a>
+            <a asp-area="Admin" asp-controller="Order" asp-action="CheckoutContinueShopping" class="btn btn-info">Continue Shopping</a>
+        </div>
+    </div>
+</form>

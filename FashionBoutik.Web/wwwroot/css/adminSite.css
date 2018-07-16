@@ -1,0 +1,269 @@
+﻿
+.admin-content {
+    margin-top: 100px;
+    padding-right: 20px;
+}
+
+/* Admin site */
+.sidebar {
+    top: 70px;
+    left: 10px;
+    /*position: fixed;
+    min-width: 300px;*/
+    z-index: 11 !important;
+    overflow: hidden;
+    display: inline-block;
+    height: calc(100vh - 70px);
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    font-family: "Roboto", sans-serif;
+    background: #fdfdfd;
+    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .dropdown-menu {
+    margin-left: -50px;
+}
+
+/*RIGHT-SIDEBAR*/
+.navbar .js-right-sidebar {
+    margin-top: 15px;
+}
+
+
+.right-sidebar .nav-tabs + .tab-content {
+    padding: 0;
+}
+
+.right-sidebar p {
+    margin: 20px 15px 15px 15px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.right-sidebar #settings .setting-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+    .right-sidebar #settings .setting-list li {
+        padding: 15px;
+        position: relative;
+        border-top: 1px solid #eee;
+    }
+
+        .right-sidebar #settings .setting-list li .switch {
+            position: absolute;
+            top: 15px;
+            right: 5px;
+        }
+
+.right-sidebar {
+    width: 280px;
+    height: calc(100vh - 70px);
+    position: fixed;
+    right: -300px;
+    top: 70px;
+    background: #fdfdfd;
+    z-index: 11 !important;
+    -webkit-box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+    /*-ms-box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);*/
+    box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+    .right-sidebar.open {
+        right: 0;
+        min-width: 300px;
+    }
+
+    .right-sidebar .nav-tabs {
+        font-weight: 600;
+        font-size: 13px;
+        width: 100%;
+        margin-left: 2px;
+    }
+
+        .right-sidebar .nav-tabs li {
+            text-align: center;
+        }
+
+            .right-sidebar .nav-tabs li > a {
+                margin-right: 0;
+            }
+
+            .right-sidebar .nav-tabs li:first-child {
+                width: 45%;
+            }
+
+            .right-sidebar .nav-tabs li:last-child {
+                width: 55%;
+            }
+
+
+/*DRAG & DROP area styles, FormStone plugin*/
+.fs-upload.fs-light .fs-upload-target {
+    background: #ffffff;
+    border: 1px dashed #e0e6ed;
+    border-radius: 2px;
+    color: #8492a6;
+    margin: 0;
+    padding: 25px;
+    text-align: center;
+    /*font-weight: bold;*/
+    font-size: 20px;
+    -webkit-transition: background .15s linear,border .15s linear,color .15s linear,opacity .15s linear;
+    transition: background .15s linear,border .15s linear,color .15s linear,opacity .15s linear;
+}
+
+.fs-upload-target {
+    cursor: pointer;
+}
+
+.fs-upload,
+.fs-upload *,
+.fs-upload :after,
+.fs-upload :before,
+.fs-upload:after,
+.fs-upload:before {
+    box-sizing: border-box;
+    -webkit-transition: none;
+    transition: none;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+}
+/* Attached FILES lists styles. NOTE: for FormStone plugin */
+.filelists {
+    margin: 20px 0;
+}
+
+    .filelists h5 {
+        margin: 10px 0 0;
+    }
+
+    .filelists .cancel_all {
+        color: red;
+        cursor: pointer;
+        clear: both;
+        font-size: 10px;
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+.filelist {
+    margin: 0;
+    padding: 10px 0;
+}
+
+    .filelist li {
+        background: #fff;
+        border-bottom: 1px solid #ECEFF1;
+        font-size: 14px;
+        list-style: none;
+        padding: 5px;
+        position: relative;
+    }
+
+        .filelist li:before {
+            display: none !important;
+        }
+        /* main site demos */
+        .filelist li .bar {
+            background: #eceff1;
+            content: '';
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 0;
+            z-index: 0;
+            -webkit-transition: width 0.1s linear;
+            transition: width 0.1s linear;
+        }
+
+        .filelist li .content {
+            display: block;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .filelist li .file {
+            color: #455A64;
+            float: left;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 50%;
+            white-space: nowrap;
+        }
+
+        .filelist li .progress {
+            color: #B0BEC5;
+            display: block;
+            float: right;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+        .filelist li .cancel {
+            color: red;
+            cursor: pointer;
+            display: block;
+            float: right;
+            font-size: 10px;
+            margin: 0 0 0 10px;
+            text-transform: uppercase;
+        }
+
+        .filelist li.error .file {
+            color: red;
+        }
+
+        .filelist li.error .progress {
+            color: red;
+        }
+
+        .filelist li.error .cancel {
+            display: none;
+        }
+
+/* OVERLAY*/
+
+.product-image-sm {
+    /*clip: rect(0 300px 300px 350px);*/
+    height: 300px;
+    object-fit: cover;
+}
+
+
+.icon-plus-overlay .icon-overlay-text {
+    bottom: 0;
+    width: 100%;
+    color: #FFF;
+    overflow: hidden;
+    padding: 50px 45px;
+    position: absolute;
+    text-align: center;
+    opacity: 0;
+    -moz-transition: all .6s ease 0s;
+    -o-transition: all .6s ease 0s;
+    -webkit-transition: all .6s ease 0s;
+    transition: all .6s ease 0s;
+}
+
+    .icon-plus-overlay .icon-overlay-text:hover {
+        opacity: 1;
+    }

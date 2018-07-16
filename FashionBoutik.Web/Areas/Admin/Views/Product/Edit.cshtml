@@ -1,0 +1,107 @@
+﻿@model ProductModel
+@using FashionBoutik.Models
+
+<link href="~/bundles/libs.css" rel="stylesheet" />
+
+@{
+    var allBrands = ProductModel.AllBrands;
+    var allCategories = ProductModel.AllCategories;
+    var allSizes = ProductModel.AllSizes;
+    var allColors = ProductModel.AllColors;
+    var allCurrencies = ProductModel.AllCurrencies;
+}
+
+@using (Html.BeginForm("Edit", "Product", new { area = "Admin", controller = "Product" }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
+{
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Edit Product" })
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @if (@ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            <i class="fa fa-warning"></i> @ViewBag.ErrorMessage
+        </div>
+    }
+    <div class="row">
+        <div class="form-horizontal">
+            <div class="form-group col-md-12 col-sm-12">
+                @Html.HiddenFor(m => m.Id)
+                <label asp-for="Name" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-9 col-sm-9">
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group col-md-12 col-sm-12">
+                <label asp-for="Description" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-9 col-sm-9">
+                    <input asp-for="Description" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group col-md-12 col-sm-12">
+                <label asp-for="Category" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-9 col-sm-9">
+                    <select class="form-contro show-tick"
+                            asp-for="Category.Id" asp-items="@(new MultiSelectList(allCategories,"Id","CategoryName"))"></select>
+                    @*@Html.ValidationMessageFor(m => m.Category, null, new { @class = "text-danger" })*@
+                </div>
+            </div>
+            <div class="form-group col-md-12 col-sm-12">
+                <label asp-for="Brand" class="col-md-3 col-sm-3 control-label">Brand</label>
+                <div class="col-md-9 col-sm-9">
+                    @*<select asp-for="BrandId" asp-items="@(new SelectList(Model.Brands,"Id","FullName"))">
+                    <option>Please select one</option>
+                </select>*@
+                    <select class="form-control show-tick"
+                            asp-for="Brand.Id" asp-items="@(new SelectList(allBrands,"Id","Name"))"></select>
+                    @*<span asp-validation-for="Brand.Id" class="text-danger"></span>*@
+                </div>
+            </div>
+            <div class="form-group col-md-12 col-sm-12">
+                <label asp-for="Sizes" class="col-md-3 col-sm-3 control-label">Sizes</label>
+                <div class="col-md-9 col-sm-9">
+                    <select class="form-control show-tick" multiple
+                            asp-for="Sizes" asp-items="@(new MultiSelectList(allSizes,"Id","Name"))" data-msg-required="Select"></select>
+                    @*@Html.ValidationMessageFor(m => m.Sizes, null, new { @class = "text-danger" })*@
+                </div>
+            </div>
+
+            <div class="form-group col-md-12 col-sm-12">
+                <input type="hidden" asp-for="PricePerUnit.Id" />
+                <label asp-for="PricePerUnit.Value" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-6 col-sm-6">
+                    <input asp-for="PricePerUnit.Value" class="form-control" required data-msg-required="Please, specify price" />
+                    @Html.ValidationMessageFor(m => m.PricePerUnit.Value, null, new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    @*<select asp-for="UnitMeasurement" asp-items="@Model.UnitMeasurements" class="form-control" />*@
+                    <select class="form-control"
+                            asp-for="PricePerUnit.Currency.Id" asp-items="@(new SelectList(allCurrencies,"Id","CurrencyCode"))" data-msg-required="Select"></select>
+                </div>
+            </div>
+            <div class="form-group col-md-12 col-sm-12">
+                <label asp-for="Status" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-9 col-sm-9">
+                    <select asp-for="Status" class="form-control">
+                        <option value="0">New</option>
+                        <option value="1">Published</option>
+                    </select>
+                    @Html.ValidationMessageFor(m => m.Status, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group col-md-12 col-sm-12">
+                <label asp-for="Attachments" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-9 col-sm-9">
+                    <div id="attachments">
+                        @Html.Partial("~/Areas/Admin/Views/Product/_ProductImageAttachments.cshtml", @Model)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { SubmitButtonText = "Save" })
+}
+<script src="~/bundles/libs.js"></script>
+<script src="~/js/productImageAttachments.js"></script>

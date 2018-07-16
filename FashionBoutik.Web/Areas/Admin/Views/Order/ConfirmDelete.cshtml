@@ -1,0 +1,18 @@
+﻿@model OrderModel
+@using FashionBoutik.Models
+
+@using (Html.BeginForm("ConfirmDelete", "Order", new { area = "Admin", controller = "Order", id = Model.Id }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
+{
+    @Html.Partial("_ModalHeader", new ModalHeader { Heading = "Delete order" })
+
+<div class="modal-body form-horizontal">
+    Are you want to delete order "@Model.Description"?
+</div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="modal-footer panel-footer">
+        <button data-dismiss="modal" class="btn btn-default" type="button"> Cancel </button>
+        <button class="btn btn-danger" type="submit">
+            <i class="glyphicon glyphicon-trash"></i>  Delete
+        </button>
+    </div>
+}

@@ -1,0 +1,12 @@
+﻿@model UsersGroup
+@using FashionBoutik.Models
+@using FashionBoutik.Entities
+
+<form asp-area="Admin" asp-action="ConfirmDelete" asp-route-id="@Model.Id" role="form">
+    @Html.Partial("_ModalHeader", new ModalHeader { Heading = "Delete Users Group" })
+
+    <div class="modal-body form-horizontal">
+        Are you want to delete the group @Model.Name ?
+    </div>
+    @Html.Partial("_ModalFooter", new ModalFooter { SubmitButtonText = "Delete" })
+</form>

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<BrandModel>
+@using FashionBoutik.Models
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head"> Brands</div>
+    <div class="panel-body">
+        <div class="btn-group">
+            <a href="/Admin/Brand/Add" id="createBrand" class="btn btn-primary"
+               data-toggle="modal" data-target="#modal-action">
+                <i class="glyphicon glyphicon-plus"></i>  New
+            </a>
+        </div>
+        <div class="top-buffer"></div>
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Description</td>
+                    <td>Status</td>
+                    <td>Image</td>
+                    @*<td>SubCategories</td>*@
+                    <td>Actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Description</td>
+                        <td>@item.Status</td>
+                        @*<td>@item.PublishStatus</td>
+                            <td>@item.HierarchicalLevel</td>*@
+                        @*<td>@item.SubCategories</td>*@
+                        <td>
+                            <img src="@Url.Content(item.Image)" height="20" />
+                        </td>
+                        <td>
+                            <a id="editBrand" class="btn btn-info"
+                               data-toggle="modal" data-target="#modal-action"
+                               asp-area="Admin" asp-controller="Brand" asp-action="Edit" asp-route-id="@item.Id">
+                                <i class="glyphicon glyphicon-pencil"></i>  Edit
+                            </a> | 
+                            <a class="btn btn-danger"
+                               data-toggle="modal" data-target="#modal-action"
+                               asp-area="Admin" asp-controller="Brand" asp-action="Delete" asp-route-id="@item.Id">
+                                <i class="glyphicon glyphicon-trash"></i>  Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action", AreaLabeledId = "#modal-action-label" })

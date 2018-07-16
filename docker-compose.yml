@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  fashionboutik.webapi:
+    image: fashionboutikwebapi
+    build:
+      context: .
+      dockerfile: FashionBoutik.WebApi\Dockerfile

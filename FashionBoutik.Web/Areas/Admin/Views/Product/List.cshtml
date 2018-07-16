@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ProductModel>
+@using FashionBoutik.Models
+@using System.Collections.Generic
+
+@*@section Styles
+    {
+        <link href="~/lib/dropzone/dropzone.css" rel="stylesheet" />
+    }
+
+    @section Scripts
+     {
+        <script src="~/lib/dropzone/dropzone.js"></script>
+        <script src="~/js/productImageAttachments.js"></script>
+    }*@
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head"> Products</div>
+    <div class="panel-body">
+        <div class="btn-group">
+            <a id="createProduct" class="btn btn-primary"
+               data-toggle="modal" data-target="#modal-action"
+               asp-area="Admin" asp-controller="Product" asp-action="Add">
+                <i class="glyphicon glyphicon-plus"></i>  New
+            </a>
+        </div>
+        <div class="top-buffer"></div>
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Description</td>
+                    <td>Image</td>
+                    <td>Status</td>
+                    <td>Category</td>
+                    <td>Brand</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.Description</td>
+
+                        <td>
+                            <!-- Carosel -->
+                            @foreach (var img in product.Attachments)
+                            {
+                                @*<img src="@Url.Content(img.Bytes)" height="20" />*@
+                            }
+                        </td>
+                        <td>@product.Status</td>
+                        <td>@product.Category?.CategoryName</td>
+                        <td>@product.Brand?.Name</td>
+                        <td>
+                            <a id="editProduct" class="btn btn-info"
+                               data-toggle="modal" data-target="#modal-action"
+                               asp-area="Admin" asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id">
+                                <i class="glyphicon glyphicon-pencil"></i>  Edit
+                            </a> |
+                            <a class="btn btn-danger"
+                               data-toggle="modal" data-target="#modal-action"
+                               asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id">
+                                <i class="glyphicon glyphicon-trash"></i>  Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action", AreaLabeledId = "#modal-action-label" })

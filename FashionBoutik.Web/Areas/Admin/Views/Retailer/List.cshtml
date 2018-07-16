@@ -1,0 +1,55 @@
+﻿@model IEnumerable<RetailerModel>
+@using FashionBoutik.Models
+@using System.Collections.Generic
+
+<div class="top-buffer"></div>
+<div class="panel panel-primary">
+    <div class="panel-heading panel-head"> Retailers </div>
+    <div class="panel-body">
+        <div class="btn-group">
+            <a href="/Admin/Retailer/Add" id="createBrand" class="btn btn-primary"
+               data-toggle="modal" data-target="#modal-action">
+                <i class="glyphicon glyphicon-plus"></i>  New
+            </a>
+        </div>
+        <div class="top-buffer"></div>
+        <table class="table table-bordered table-striped table-condensed">
+            <thead>
+                <tr>
+                    <td>Name</td>
+                    <td>RetailerUrl</td>
+                    <td>Description</td>
+                    <td>Address</td>
+                    @*<td>Info (some details)</td>*@
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var retailer in Model)
+                {
+                    <tr>
+                        <td>@retailer.Name</td>
+                        <td>@retailer.RetailerUrl</td>
+                        <td>@retailer.Description</td>
+                        <td>@retailer.Address</td>
+
+                        @*<td>  @retailer.Info </td>*@
+                        <td>
+                            <a href="/Admin/Retailer/Edit/@retailer.Id" class="btn btn-info"
+                               data-toggle="modal" data-target="#modal-action">
+                                <i class="glyphicon glyphicon-pencil"></i>  Edit
+                            </a> | 
+                            <a class="btn btn-danger"
+                               data-toggle="modal" data-target="#modal-action"
+                               asp-area="Admin" asp-controller="Retailer" asp-action="Delete" asp-route-id="@retailer.Id">
+                                <i class="glyphicon glyphicon-trash"></i>  Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action", AreaLabeledId = "#modal-action-label" })

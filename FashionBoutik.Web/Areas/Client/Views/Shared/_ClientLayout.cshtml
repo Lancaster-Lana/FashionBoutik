@@ -1,0 +1,395 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <environment names="Development">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+        @*<link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+                asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+                asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />*@
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" /> @*<link rel="stylesheet" href="~/bundles/bootstrap.css" />*@
+
+        <link rel="stylesheet" href="~/css/adminSite.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+
+        <link rel="stylesheet" href="~/css/adminSite.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-brand">
+            <a asp-area="" asp-controller="Home" asp-action="Index">Go to main board</a> @*@await Html.PartialAsync("_UserHeader")*@
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+               
+                @*<li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>*@
+                <!-- Notifications -->
+                @*<li class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                        <i class="material-icons">notifications</i>
+                        <span class="label-count">7</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">NOTIFICATIONS</li>
+                        <li class="body">
+                            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 254px;">
+                                <ul class="menu" style="overflow: hidden; width: auto; height: 254px;">
+                                    <li>
+                                        <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                            <div class="icon-circle bg-cyan">
+                                                <i class="material-icons">add_shopping_cart</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>4 sales made</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 22 mins ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                            <div class="icon-circle bg-orange">
+                                                <i class="material-icons">mode_edit</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>Nancy</b> changed name</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 2 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                            <div class="icon-circle bg-light-green">
+                                                <i class="material-icons">cached</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4><b>John</b> updated status</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> 3 hours ago
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class=" waves-effect waves-block">
+                                            <div class="icon-circle bg-purple">
+                                                <i class="material-icons">settings</i>
+                                            </div>
+                                            <div class="menu-info">
+                                                <h4>Settings updated</h4>
+                                                <p>
+                                                    <i class="material-icons">access_time</i> Yesterday
+                                                </p>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="slimScrollBar" style="background: rgba(0, 0, 0, 0.5); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 0px; z-index: 99; right: 1px;"></div>
+                                <div class="slimScrollRail" style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 0px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>*@
+
+                <li class="pull-right"><a href="javascript:void(0);" class="js-right-sidebar" data-close="true">
+                    <i class="material-icons">more_vert</i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="col-md-12">
+        <aside id="leftsidebar" class="sidebar col-md-2">
+            @*<div class="pull-left">
+                <a href="#leftBar" data-toggle="collapse" data-target="#leftBar" class="pull-left" aria-expanded="true">
+                    <i class="fa fa-bars" aria-hidden="true">...</i>
+                </a>
+            </div>*@
+
+            <nav id="leftBar" class="navbar navbar-default">
+                <div class="menu">
+                    <ul class="nav navbar-left">
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block toggled">
+                                <i class="material-icons">account_circle</i>
+                                <span>Permissions</span>
+                            </a>
+                            <ul class="ml-menu" style="display: block;">
+                                <li>
+                                    @Html.ActionLink("Roles", "Index", new { area = "Admin", controller = "Role", @Class = "waves-effect waves-block" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Users", "Index", new { area = "Admin", controller = "User", @Class = "waves-effect waves-block" })
+                                    @*@Html.ActionLink("Subscriptions to categories", "Subscriptions", new { area = "Admin", controller = "User" })*@
+                                    @*<a asp-area="Admin" asp-controller="User" asp-action="Index">Users</a>*@
+                                </li>
+                                <li>
+                                    @Html.ActionLink("UsersGroups", "Index", new { area = "Admin", controller = "UsersGroup", @Class = "waves-effect waves-block" })
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block toggled">
+                                <i class="material-icons">line_style</i>
+                                <span>Categories</span>
+                            </a>
+                            <ul class="ml-menu" style="display: block;">
+                                <li>
+                                    @Html.ActionLink("Categories", "List", new { area = "Admin", controller = "Category", @Class = "waves-effect waves-block" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Brands", "List", new { area = "Admin", controller = "Brand", @Class = "waves-effect waves-block" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Products", "List", new { area = "Admin", controller = "Product", @Class = "waves-effect waves-block" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Retailers", "List", new { area = "Admin", controller = "Retailer", @Class = "waves-effect waves-block" })
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript:void(0);" class="menu-toggle waves-effect waves-block toggled">
+                                <i class="material-icons">face</i>
+                                <span>Customers</span>
+                            </a>
+                            <ul class="ml-menu" style="display: block;">
+                                <li>
+                                    @Html.ActionLink("Customers", "List", new { area = "Admin", controller = "Customer", @Class = "waves-effect waves-block" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Orders", "List", new { area = "Admin", controller = "Order", @Class = "waves-effect waves-block" })
+                                </li>
+                                <li>
+                                    @Html.ActionLink("GiftCards", "List", new { area = "Admin", controller = "GiftCard", @Class = "waves-effect waves-block" })
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </nav>
+        </aside>
+
+       <aside id="rightsidebar" class="right-sidebar open">
+            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                <li role="presentation" class=""><a href="#skins" data-toggle="tab" aria-expanded="false">SKINS</a></li>
+                <li role="presentation" class="active"><a href="#settings" data-toggle="tab" aria-expanded="true">SETTINGS</a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade" id="skins">
+                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 285px;">
+                        <ul class="demo-choose-skin" style="overflow: hidden; width: auto; height: 285px;">
+                            <li data-theme="red" class="active">
+                                <div class="red"></div>
+                                <span>Red</span>
+                            </li>
+                            <li data-theme="pink">
+                                <div class="pink"></div>
+                                <span>Pink</span>
+                            </li>
+                            <li data-theme="purple">
+                                <div class="purple"></div>
+                                <span>Purple</span>
+                            </li>
+                            <li data-theme="deep-purple">
+                                <div class="deep-purple"></div>
+                                <span>Deep Purple</span>
+                            </li>
+                            <li data-theme="indigo">
+                                <div class="indigo"></div>
+                                <span>Indigo</span>
+                            </li>
+                            <li data-theme="blue">
+                                <div class="blue"></div>
+                                <span>Blue</span>
+                            </li>
+                            <li data-theme="light-blue">
+                                <div class="light-blue"></div>
+                                <span>Light Blue</span>
+                            </li>
+                            <li data-theme="cyan">
+                                <div class="cyan"></div>
+                                <span>Cyan</span>
+                            </li>
+                            <li data-theme="teal">
+                                <div class="teal"></div>
+                                <span>Teal</span>
+                            </li>
+                            <li data-theme="green">
+                                <div class="green"></div>
+                                <span>Green</span>
+                            </li>
+                            <li data-theme="light-green">
+                                <div class="light-green"></div>
+                                <span>Light Green</span>
+                            </li>
+                            <li data-theme="lime">
+                                <div class="lime"></div>
+                                <span>Lime</span>
+                            </li>
+                            <li data-theme="yellow">
+                                <div class="yellow"></div>
+                                <span>Yellow</span>
+                            </li>
+                            <li data-theme="amber">
+                                <div class="amber"></div>
+                                <span>Amber</span>
+                            </li>
+                            <li data-theme="orange">
+                                <div class="orange"></div>
+                                <span>Orange</span>
+                            </li>
+                            <li data-theme="deep-orange">
+                                <div class="deep-orange"></div>
+                                <span>Deep Orange</span>
+                            </li>
+                            <li data-theme="brown">
+                                <div class="brown"></div>
+                                <span>Brown</span>
+                            </li>
+                            <li data-theme="grey">
+                                <div class="grey"></div>
+                                <span>Grey</span>
+                            </li>
+                            <li data-theme="blue-grey">
+                                <div class="blue-grey"></div>
+                                <span>Blue Grey</span>
+                            </li>
+                            <li data-theme="black">
+                                <div class="black"></div>
+                                <span>Black</span>
+                            </li>
+                        </ul><div class="slimScrollBar" style="background: rgba(0, 0, 0, 0.5); width: 6px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 0px; z-index: 99; right: 1px; height: 92.7226px;"></div><div class="slimScrollRail" style="width: 6px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 0px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade active in" id="settings">
+                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 285px;">
+                        <div class="demo-settings" style="overflow: hidden; width: auto; height: 285px;">
+                            <p>GENERAL SETTINGS</p>
+                            <ul class="setting-list">
+                                <li>
+                                    <span>Report Panel Usage</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox" checked=""><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>Email Redirect</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox"><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <p>SYSTEM SETTINGS</p>
+                            <ul class="setting-list">
+                                <li>
+                                    <span>Notifications</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox" checked=""><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>Auto Updates</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox" checked=""><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                            </ul>
+                            <p>ACCOUNT SETTINGS</p>
+                            <ul class="setting-list">
+                                <li>
+                                    <span>Offline</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox"><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span>Location Permission</span>
+                                    <div class="switch">
+                                        <label><input type="checkbox" checked=""><span class="lever"></span></label>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div><div class="slimScrollBar" style="background: rgba(0, 0, 0, 0.5); width: 6px; position: absolute; top: 119px; opacity: 0.4; display: none; border-radius: 0px; z-index: 99; right: 1px; height: 165.428px;"></div><div class="slimScrollRail" style="width: 6px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 0px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- Content-->
+        <div class="col-md-10 admin-content">
+            @RenderBody()
+        </div>
+    </div>
+
+    <environment names="Development">
+        @*<script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>*@
+
+        @*<script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>*@
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+
+        <script src="~/lib/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        @*<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>*@
+
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+
+        <script src="~/lib/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+
+    </environment>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

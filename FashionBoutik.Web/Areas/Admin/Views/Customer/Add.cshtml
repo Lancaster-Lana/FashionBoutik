@@ -1,0 +1,51 @@
+﻿@model CustomerModel
+@using FashionBoutik.Models
+
+@{ 
+    Layout = null;
+}
+
+@using (Html.BeginForm("Add", "CustomerModel", new { area = "Admin", controller = "CustomerModel" }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
+{
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Add CustomerModel" })
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @if (@ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger">
+            <i class="fa fa-warning"></i> @ViewBag.ErrorMessage
+        </div>
+    }
+
+    <div class="modal-body form-horizontal">
+        <div class="row">
+            <div class="form-group col-md-12 col-sm-12">
+                <label asp-for="Name" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-9 col-sm-9">
+                    <input asp-for="Name" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group col-md-12 col-sm-12">
+                <label asp-for="Address" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-9 col-sm-9">
+                    <input asp-for="Address" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group col-md-12 col-sm-12">
+                <label asp-for="Status" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-9 col-sm-9">
+                    <input asp-for="Status" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group col-md-12 col-sm-12">
+                <label asp-for="GiftCards" class="col-md-3 col-sm-3 control-label"></label>
+                <div class="col-md-9 col-sm-9">
+                    <select asp-for="GiftCards" class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { SubmitButtonText = "Create" })
+}

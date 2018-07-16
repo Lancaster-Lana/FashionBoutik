@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Manage Users Groups app</title>
+
+    <environment names="Development">
+        <link href="@Url.Content("~/css/site.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/css/full_screen_preview.min.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/css/prettify.min.css")" rel="stylesheet" />
+        @*For social buttons*@
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+       
+        @RenderSection("Styles", false)
+        <link href="~/bundles/libs.css" rel="stylesheet" />
+
+    </environment>
+    <environment names="Staging,Production">
+        <link href="@Url.Content("~/css/site.min.css")" rel="stylesheet" />
+
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        @RenderSection("Styles", false)
+        <link href="@Url.Content("~/css/full_screen_preview.min.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/css/prettify.min.css")" rel="stylesheet" />
+        @*For social buttons*@
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+        <link href="~/bundles/libs.min.css" rel="stylesheet" />
+    </environment>
+</head>
+
+<body>
+    <header>
+        <!--Right top side login menu-->
+        @*<div class="login_menu">*@
+        <div class="navbar navbar-fixed-top">
+            @Html.Partial("_UserHeader")
+        </div>
+        <span>
+            <h1 class="stylishHeader">New Fashion </h1>
+            <h2 class="stylishHeader">your style revolution </h2>
+        </span>
+
+        <!--Common top right side menu-->
+        <nav>
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Business style", "Index", "Business")</li>
+                <li>@Html.ActionLink("Furshet style", "Index", "Furshet")</li>
+                <li>@Html.ActionLink("Season clothes", "Index", "Season")</li>
+                <li>@Html.ActionLink("Wedding fashion", "Index", "Wedding")</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+            </ul>
+            <!-- Right client menu button-->
+            <ul class="nav navbar-nav navbar-right">
+                <li class="pull-right">
+                    <a href="javascript:void(0);" class="js-right-sidebar" data-close="true">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="shop" class="row content-body draggable-demo-shop jqx-rc-all">
+
+        <div id="catalog" class="draggable-demo-catalog jqx-rc-all jqx-scrollbar-state-normal-light">
+            @RenderBody()
+        </div>
+
+        <!-- auto-hide shopping bag -->
+        <aside id="rightsidebar" class="right-sidebar">
+            <ul class="nav nav-tabs tab-nav-right" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#mybag" data-toggle="tab" aria-expanded="true"> My Shopping Cart</a>
+                </li>
+                @*<li role="presentation" class=""><a href="#skins" data-toggle="tab" aria-expanded="false">SKINS</a></li>*@
+            </ul>
+            <div class="tab-content">
+                <div id="mybag" role="tabpanel" class="tab-pane fade active in">
+                    <form method="get" asp-antiforgery="true" 
+                          asp-area="Admin" asp-controller="Order" asp-action="CheckoutDetails" >
+
+                        <div class="slimScrollDiv">
+                            <div class="demo-settings draggable-demo-cart-wrapper jqx-rc-all">
+                                <div class="draggable-demo-title jqx-rc-t">
+                                    <div class="draggable-demo-total">
+                                        Total price: <strong><span id="total">$ 0</span></strong>
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fa fa-shopping-cart"></i> Buy
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Shopping Bag-->
+                                <input type="hidden" id="cartItems" name="cartItems" />
+                                <div id='cart' class="draggable-demo-cart jqx-rc-all">
+                                    <div id="jqxgrid" role="grid" align="left"
+                                         class="jqx-grid jqx-grid-light jqx-reset jqx-rc-all jqx-rc-all-light jqx-widget jqx-widget-light jqx-widget-content ">
+                                    </div>
+                                </div>
+                                <div style="clear: both;"></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <h4 class="text-center">@Html.Raw(string.Format("{0} {1} {2}", "lana-soft", "&copy;", DateTime.Now.Year))</h4>
+    </footer>
+
+    <environment names="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+
+        <script src="~/bundles/libs.js" asp-append-version="true"></script>
+
+        <script src="~/js/site.js" asp-append-version="true"></script>
+
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+
+        <link href="~/bundles/libs.min.js" rel="stylesheet" />
+
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
