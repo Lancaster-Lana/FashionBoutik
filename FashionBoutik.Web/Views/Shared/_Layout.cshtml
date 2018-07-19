@@ -84,17 +84,22 @@
             </ul>
             <div class="tab-content">
                 <div id="mybag" role="tabpanel" class="tab-pane fade active in">
-                    <form method="get" asp-antiforgery="true" 
-                          asp-area="Admin" asp-controller="Order" asp-action="CheckoutDetails" >
+                    <form method="get" asp-antiforgery="true"
+                          asp-area="Admin" asp-controller="Order" asp-action="CheckoutDetails">
 
                         <div class="slimScrollDiv">
                             <div class="demo-settings draggable-demo-cart-wrapper jqx-rc-all">
                                 <div class="draggable-demo-title jqx-rc-t">
                                     <div class="draggable-demo-total">
                                         Total price: <strong><span id="total">$ 0</span></strong>
-                                        <button type="submit" class="btn btn-success">
-                                            <i class="fa fa-shopping-cart"></i> Buy
-                                        </button>
+                                        <div class="btn-group-sm">
+                                            <button type="submit" class="btn btn-success">
+                                                <i class="fa fa-shopping-cart"></i> Buy
+                                            </button>
+                                            <button type="button" class="btn btn-danger clear-shopping-cart">
+                                                <i class="fa fa-remove"></i> Clear
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
 

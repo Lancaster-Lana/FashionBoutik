@@ -90,7 +90,7 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
                 return PartialView("ConfirmDelete", model);
             }
 
-            AddError("Cannot delete role is empty");
+            AddError("Cannot delete empty role !");
             return View();
         }
 

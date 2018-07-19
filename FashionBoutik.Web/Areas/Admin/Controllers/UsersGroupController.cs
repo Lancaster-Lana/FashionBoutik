@@ -57,13 +57,13 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
         {
             if (id > 0)
             {
-                var usersGroup = await _manager.GetUsersGroupById(id);
-                if (usersGroup != null)
-                {
-                    return PartialView(usersGroup);
-                }
+                var userGroup = await _manager.GetUsersGroupById(id);
+                var model = new UsersGroupModel { Name = userGroup.Name, Id = userGroup.Id };
+                return PartialView("ConfirmDelete", model);
             }
-            return RedirectToAction("List");
+
+            AddError("Cannot delete empty user group");
+            return View();
         }
 
         [HttpPost]

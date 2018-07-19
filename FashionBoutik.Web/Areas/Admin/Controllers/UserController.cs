@@ -167,32 +167,9 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
             return View(model); //with errors
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> EditUser(string id, EditUserViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        User user = await _userManager.FindByIdAsync(id);
-        //        if (user != null)
-        //        {
-        //            user.Name = model.Name;
-        //            user.Email = model.Email;
-        //            user.UsersGroupId = model.UsersGroupId;
-
-        //            IdentityResult result = await _userManager.UpdateAsync(user);
-        //            if (result.Succeeded)
-        //            {
-        //                return RedirectToAction("Index");
-        //            }
-        //        }
-        //    }
-        //    return PartialView(model);
-        //}
-
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            //string name = string.Empty;
             if (id > 0)
             {
                 User appUser = await _userManager.FindByIdAsync(id.ToString());
@@ -204,10 +181,11 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
                         Name = appUser.Name,
                         UserName = appUser.UserName,
                     };
-                    return PartialView(model);
+                    return PartialView("ConfirmDelete", model);
                 }
             }
-            return RedirectToAction("Index");
+            AddError("Cannot delete empty user !");
+            return View();
         }
 
         [HttpPost]
@@ -229,19 +207,7 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
             return View();
         }
 
-
-        [HttpGet]
-        public async Task<IActionResult> Delete(string id)
-        {
-            if (String.IsNullOrEmpty(id))
-            {
-                AddError("User id is empty");
-                return View();
-            }
-
-            var applicationUser = await _userManager.FindByIdAsync(id);
-            return PartialView("ConfirmDeleteUser", applicationUser);
-        }
+        /*
 
         [HttpPost]
         public async Task<IActionResult> ConfirmDelete(User user)
@@ -258,7 +224,7 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
 
             AddError("Cannot delete empty user");
             return View();
-        }
+        }*/
 
         #endregion
     }

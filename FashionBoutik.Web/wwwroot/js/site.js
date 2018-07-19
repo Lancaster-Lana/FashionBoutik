@@ -534,6 +534,14 @@ var cart = (function ($) {
                 $(elem).jqxDragDrop('dropAction', 'default');
             });
         });
+
+        //attach clear selected producta for shopping
+        $('.clear-shopping-cart').unbind('click');
+        $('.clear-shopping-cart').on('click', function () {
+            cartItems = null;
+            sessionStorage.setItem('shoppingBagData', cartItems); //clear cached data
+            render(); //render\update grid of selected items
+        });
     };
 
     //this.init = function () {

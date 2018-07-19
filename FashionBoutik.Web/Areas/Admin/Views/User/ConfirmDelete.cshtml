@@ -1,13 +1,11 @@
-﻿@model User
-@using FashionBoutik.Entities
+﻿@model UserViewModel
 @using FashionBoutik.Models
 
-@using (Html.BeginForm("ConfirmDelete", "User", new { area = "Admin", controller = "User", id = Model.Id }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
-{
+<form asp-area="Admin" asp-controller="User" asp-action="ConfirmDelete" asp-route-id="@Model.Id" role="form">
     @Html.Partial("_ModalHeader", new ModalHeader { Heading = "Delete User" })
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="modal-body form-horizontal">
-        Are you sure to delete user @Model ?
+        Are you sure to delete the user '@Model' ?
     </div>
     @Html.Partial("_ModalFooter", new ModalFooter { SubmitButtonText = "Delete" })
-}
+</form>
