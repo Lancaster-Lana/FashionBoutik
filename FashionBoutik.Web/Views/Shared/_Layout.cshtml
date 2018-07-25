@@ -84,8 +84,7 @@
             </ul>
             <div class="tab-content">
                 <div id="mybag" role="tabpanel" class="tab-pane fade active in">
-                    <form method="get" asp-antiforgery="true"
-                          asp-area="Admin" asp-controller="Order" asp-action="CheckoutDetails">
+                    <form method="get" asp-antiforgery="true" asp-area="Admin" asp-controller="Order" asp-action="CheckoutDetails">
 
                         <div class="slimScrollDiv">
                             <div class="demo-settings draggable-demo-cart-wrapper jqx-rc-all">
@@ -104,7 +103,7 @@
                                 </div>
 
                                 <!-- Shopping Bag-->
-                                <input type="hidden" id="cartItems" name="cartItems" />
+                                <input type="hidden" id="cartItemsJson" name="cartItemsJson" />
                                 <div id='cart' class="draggable-demo-cart jqx-rc-all">
                                     <div id="jqxgrid" role="grid" align="left"
                                          class="jqx-grid jqx-grid-light jqx-reset jqx-rc-all jqx-rc-all-light jqx-widget jqx-widget-light jqx-widget-content ">

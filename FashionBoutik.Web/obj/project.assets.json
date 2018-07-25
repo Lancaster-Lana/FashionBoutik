@@ -4484,7 +4484,7 @@
           "lib/netstandard1.3/System.Private.DataContractSerialization.dll": {}
         }
       },
-      "System.Private.ServiceModel/4.4.3": {
+      "System.Private.ServiceModel/4.4.4": {
         "type": "package",
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.0.0",
@@ -5073,11 +5073,11 @@
           }
         }
       },
-      "System.ServiceModel.Duplex/4.4.3": {
+      "System.ServiceModel.Duplex/4.4.4": {
         "type": "package",
         "dependencies": {
-          "System.Private.ServiceModel": "4.4.3",
-          "System.ServiceModel.Primitives": "4.4.3"
+          "System.Private.ServiceModel": "4.4.4",
+          "System.ServiceModel.Primitives": "4.4.4"
         },
         "compile": {
           "ref/netstandard2.0/System.ServiceModel.Duplex.dll": {}
@@ -5086,11 +5086,11 @@
           "lib/netstandard2.0/System.ServiceModel.Duplex.dll": {}
         }
       },
-      "System.ServiceModel.Http/4.4.3": {
+      "System.ServiceModel.Http/4.4.4": {
         "type": "package",
         "dependencies": {
-          "System.Private.ServiceModel": "4.4.3",
-          "System.ServiceModel.Primitives": "4.4.3"
+          "System.Private.ServiceModel": "4.4.4",
+          "System.ServiceModel.Primitives": "4.4.4"
         },
         "compile": {
           "ref/netstandard2.0/System.ServiceModel.Http.dll": {}
@@ -5099,11 +5099,11 @@
           "lib/netstandard2.0/System.ServiceModel.Http.dll": {}
         }
       },
-      "System.ServiceModel.NetTcp/4.4.3": {
+      "System.ServiceModel.NetTcp/4.4.4": {
         "type": "package",
         "dependencies": {
-          "System.Private.ServiceModel": "4.4.3",
-          "System.ServiceModel.Primitives": "4.4.3"
+          "System.Private.ServiceModel": "4.4.4",
+          "System.ServiceModel.Primitives": "4.4.4"
         },
         "compile": {
           "ref/netstandard2.0/System.ServiceModel.NetTcp.dll": {}
@@ -5112,10 +5112,10 @@
           "lib/netstandard2.0/System.ServiceModel.NetTcp.dll": {}
         }
       },
-      "System.ServiceModel.Primitives/4.4.3": {
+      "System.ServiceModel.Primitives/4.4.4": {
         "type": "package",
         "dependencies": {
-          "System.Private.ServiceModel": "4.4.3"
+          "System.Private.ServiceModel": "4.4.4"
         },
         "compile": {
           "ref/netstandard2.0/System.ServiceModel.Primitives.dll": {},
@@ -5126,11 +5126,11 @@
           "lib/netstandard2.0/System.ServiceModel.dll": {}
         }
       },
-      "System.ServiceModel.Security/4.4.3": {
+      "System.ServiceModel.Security/4.4.4": {
         "type": "package",
         "dependencies": {
-          "System.Private.ServiceModel": "4.4.3",
-          "System.ServiceModel.Primitives": "4.4.3"
+          "System.Private.ServiceModel": "4.4.4",
+          "System.ServiceModel.Primitives": "4.4.4"
         },
         "compile": {
           "ref/netstandard2.0/System.ServiceModel.Security.dll": {}
@@ -11638,10 +11638,10 @@
         "system.private.datacontractserialization.nuspec"
       ]
     },
-    "System.Private.ServiceModel/4.4.3": {
-      "sha512": "5LyheHZH9dwB7q2DbUklkshv2DQrG8RbCd7wHoOWQiyLC1OzqdCa6aM8F7Jx1JE221s8bsZV3ST3MLt4MGek0Q==",
+    "System.Private.ServiceModel/4.4.4": {
+      "sha512": "tRGIvhHCqfIkfHKwf4moJ+XxrcDLJnGlfdLaOMTIC+1a9bj0V9bOOJj6H2yuT3ITs3j3Or20oTaqqld91mM+eg==",
       "type": "package",
-      "path": "system.private.servicemodel/4.4.3",
+      "path": "system.private.servicemodel/4.4.4",
       "files": [
         ".signature.p7s",
         "LICENSE.TXT",
@@ -11652,7 +11652,7 @@
         "runtimes/win7/lib/netcore50/System.Private.ServiceModel.dll",
         "runtimes/win7/lib/netstandard1.3/System.Private.ServiceModel.dll",
         "runtimes/win7/lib/netstandard2.0/System.Private.ServiceModel.dll",
-        "system.private.servicemodel.4.4.3.nupkg.sha512",
+        "system.private.servicemodel.4.4.4.nupkg.sha512",
         "system.private.servicemodel.nuspec",
         "version.txt"
       ]
@@ -13116,10 +13116,10 @@
         "version.txt"
       ]
     },
-    "System.ServiceModel.Duplex/4.4.3": {
-      "sha512": "5pMBQdmojBtVCYB7F0mhy+gglB5Ufi30mIBN/OBjLjtQxXk+oh/3dhWqvNinOvztx+1d7U+1QxpANtV3LfCvuw==",
+    "System.ServiceModel.Duplex/4.4.4": {
+      "sha512": "av0L+0quVcRKKIrPm1mjzcbP203Qk7Ni3AKzW+ozWdsEr9TzNREYmP8soCQtZBtT4bn3FPzkG40m8nIDAWqFWA==",
       "type": "package",
-      "path": "system.servicemodel.duplex/4.4.3",
+      "path": "system.servicemodel.duplex/4.4.4",
       "files": [
         ".signature.p7s",
         "LICENSE.TXT",
@@ -13150,15 +13150,15 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.servicemodel.duplex.4.4.3.nupkg.sha512",
+        "system.servicemodel.duplex.4.4.4.nupkg.sha512",
         "system.servicemodel.duplex.nuspec",
         "version.txt"
       ]
     },
-    "System.ServiceModel.Http/4.4.3": {
-      "sha512": "utbCHWgAEP8Hnkno839qgkqoLW5FWfxRvAAhY+JpNuD7vKYZU2Jo/WJ8m5v9MxXpdLHJuFBKYC8NCiqBcINQAQ==",
+    "System.ServiceModel.Http/4.4.4": {
+      "sha512": "xK5Nhr8xxzBTjF9JpVSvHWsIxiwEwrE1ZlDGfYiyCSkHJnGyx3p8fXlTMa5wWF97QVNuu/D0apdl7b5U9t/TvQ==",
       "type": "package",
-      "path": "system.servicemodel.http/4.4.3",
+      "path": "system.servicemodel.http/4.4.4",
       "files": [
         ".signature.p7s",
         "LICENSE.TXT",
@@ -13195,15 +13195,15 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.servicemodel.http.4.4.3.nupkg.sha512",
+        "system.servicemodel.http.4.4.4.nupkg.sha512",
         "system.servicemodel.http.nuspec",
         "version.txt"
       ]
     },
-    "System.ServiceModel.NetTcp/4.4.3": {
-      "sha512": "prsu5Gz/GLaNxqA+TCBmhv7r+o0ecXC2/dIGs3hD6xH7ooHqF3eCIHNfIiuce0/Hmt0ycLTrOmV3C3QKTTzzWA==",
+    "System.ServiceModel.NetTcp/4.4.4": {
+      "sha512": "sGZT0jGKyDBtWv3SD+Ldk4MinQEijEec1cVcNFnBvSFTt+awUeVZ2E2uBXHOeslosMscOHn8OSMG/Etblm0VlA==",
       "type": "package",
-      "path": "system.servicemodel.nettcp/4.4.3",
+      "path": "system.servicemodel.nettcp/4.4.4",
       "files": [
         ".signature.p7s",
         "LICENSE.TXT",
@@ -13237,15 +13237,15 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.servicemodel.nettcp.4.4.3.nupkg.sha512",
+        "system.servicemodel.nettcp.4.4.4.nupkg.sha512",
         "system.servicemodel.nettcp.nuspec",
         "version.txt"
       ]
     },
-    "System.ServiceModel.Primitives/4.4.3": {
-      "sha512": "jgm9khM6niXGHSlkVmqa97n71UyoJmMn/bUgI0PzFPBQnKXN7HSxKKVQoQwXZF3Yr9+wndCQMa/8XJXAoPIC6g==",
+    "System.ServiceModel.Primitives/4.4.4": {
+      "sha512": "/eHdBdoJ0n0d2zY9hN6T2SFu7lfjsvIg8Ej1w7mYL7FT6YwUQhnm3Gi5bMpFoOKaBpcJ98N9In7cNvYtsduaFg==",
       "type": "package",
-      "path": "system.servicemodel.primitives/4.4.3",
+      "path": "system.servicemodel.primitives/4.4.4",
       "files": [
         ".signature.p7s",
         "LICENSE.TXT",
@@ -13284,15 +13284,15 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.servicemodel.primitives.4.4.3.nupkg.sha512",
+        "system.servicemodel.primitives.4.4.4.nupkg.sha512",
         "system.servicemodel.primitives.nuspec",
         "version.txt"
       ]
     },
-    "System.ServiceModel.Security/4.4.3": {
-      "sha512": "jmE7bEpWCSvWlAijT1u3MMS2JrDmlyq8v9bLzMhD02+lvCPEVa5Rtmwmw7FzWuMPDvfrpdb8QnVqcxcoob9RZA==",
+    "System.ServiceModel.Security/4.4.4": {
+      "sha512": "8fL79L2pIrvZJZxh3ccrqWMWpQdrQ1eSYZ2xHFlTM/3fL/8H/HPpeHPZAIwd7ikq3qFgCKtjX/WJi+0hfM0pDw==",
       "type": "package",
-      "path": "system.servicemodel.security/4.4.3",
+      "path": "system.servicemodel.security/4.4.4",
       "files": [
         ".signature.p7s",
         "LICENSE.TXT",
@@ -13324,7 +13324,7 @@
         "ref/xamarinmac20/_._",
         "ref/xamarintvos10/_._",
         "ref/xamarinwatchos10/_._",
-        "system.servicemodel.security.4.4.3.nupkg.sha512",
+        "system.servicemodel.security.4.4.4.nupkg.sha512",
         "system.servicemodel.security.nuspec",
         "version.txt"
       ]

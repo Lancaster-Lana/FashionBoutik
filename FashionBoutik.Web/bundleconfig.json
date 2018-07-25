@@ -57,7 +57,7 @@
       "wwwroot/lib/jquery-filedrop/upload.js",
       "wwwroot/lib/jquery-slimscroll/jquery.slimscroll.js",
 
-      "wwwroot/lib/dropzone/dropzone-amd-module.js",   
+      "wwwroot/lib/dropzone/dropzone-amd-module.js",
       "wwwroot/lib/dropzone/dropzone.js",
 
       "wwwroot/lib/datatables/datatables.js",
@@ -69,6 +69,7 @@
       "wwwroot/lib/jqwidgets/js/jqxbuttons.js",
       "wwwroot/lib/jqwidgets/js/jqxscrollbar.js",
       "wwwroot/lib/jqwidgets/js/jqxgrid.js",
+      "wwwroot/lib/jqwidgets/js/jqxgrid.pager.js",
       "wwwroot/lib/jqwidgets/js/jqxgrid.columnsresize.js",
       "wwwroot/lib/jqwidgets/js/jqxlistbox.js",
       "wwwroot/lib/jqwidgets/js/jqxdropdownlist.js",

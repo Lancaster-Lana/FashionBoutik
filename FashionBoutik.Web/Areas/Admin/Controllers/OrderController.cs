@@ -121,12 +121,12 @@ namespace FashionBoutik.Web.Controllers
 
         [Authorize]
         [HttpGet]
-        public async Task<IActionResult> CheckoutDetails(string cartItems)//Dictionary<string, int> items)
+        public async Task<IActionResult> CheckoutDetails(string cartItemsJson)//Dictionary<string, int> items)
         {
             //Get cached sessionStorage data
             //var selectedProducts = Request.Form["cartItems"];  //var caretItems = _context.HttpContext.Session.GetString("shoppingBagData");
 
-            var basketViewModel = JsonConvert.DeserializeObject<List<CartItemModel>>(cartItems); //await GetBasketViewModelAsync();
+            var basketViewModel = JsonConvert.DeserializeObject<List<CartItemModel>>(cartItemsJson); //await GetBasketViewModelAsync();
 
             //await _basketService.SetQuantities(basketViewModel.Id, items);
 

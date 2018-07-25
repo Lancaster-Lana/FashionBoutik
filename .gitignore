@@ -4,3 +4,4 @@
 
 /.vs/FashionBoutik/v15/Server/sqlite3
 /.vs/FashionBoutik/v15/.suo
+*.cache

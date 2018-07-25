@@ -41,9 +41,7 @@
 @{
     ViewBag.Title = "Season style";
 
-    Dictionary<string, string> images = new Dictionary<string, string>();
-    // var images = new List<string>();
-    //String path = Server.MapPath("~/css/images/business");
+    var images = new Dictionary<string, string>();
     var webRoot = hostingEnv.WebRootPath;
     string path = System.IO.Path.Combine(webRoot, "css/images/season");
 
@@ -52,8 +50,12 @@
         var files = System.IO.Directory.GetFiles(path);
         foreach (var file in files)
         {
-            var fileName = System.IO.Path.GetFileName(file);
-            images.Add(fileName, "/css/images/season/" + fileName);
+            var name = System.IO.Path.GetFileNameWithoutExtension(file);
+            var filePath = "/css/images/season/" + System.IO.Path.GetFileName(file);
+            if (!images.Keys.Contains(name))
+            {
+                images.Add(name, filePath);
+            }
         }
     }
 }

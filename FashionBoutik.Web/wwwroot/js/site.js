@@ -264,11 +264,11 @@ $.Board.rightSideBar = {
 
 //$.Cart = {};
 var cart = (function ($) {
-
+    this.cartItems = [];
     var productsOffset = 3;
     var theme,
         onCart = false,
-        cartItems = [],
+       
         totalPrice = 0;
     theme = $.jqx.theme;
 
@@ -295,9 +295,12 @@ var cart = (function ($) {
         $("#jqxgrid").jqxGrid(
             {
                 width: 280,//height: 335,
-
+                columnsresize: true,
+                enabletooltips: true,
                 keyboardnavigation: false,
                 selectionmode: 'none',
+                pagesize: 10,
+                pageable: true,
                 columns: [
                     { text: 'Product', dataField: 'name', width: 150 },
                     { text: 'Count', dataField: 'count', width: 60 },
@@ -307,13 +310,13 @@ var cart = (function ($) {
         $("#jqxgrid").on('cellclick', function (event) {
             var index = event.args.rowindex;
             if (event.args.datafield == 'remove') {
-                var item = cartItems[index];
+                var item = this.cartItems[index];
                 if (item.count > 1) {
                     item.count -= 1;
                     updateGridRow(index, item);
                 }
                 else {
-                    cartItems.splice(index, 1);
+                    this.cartItems.splice(index, 1);
                     removeGridRow(index);
                 }
                 updatePrice(-item.price);
@@ -371,22 +374,22 @@ var cart = (function ($) {
         //create\render shopping Cart grid
         gridRendering();
 
-        var cachedCartItems = sessionStorage.getItem('shoppingBagData');
-        var loadSavedProducts = cachedCartItems;//(cachedCartItems != null)
+        var cachedCartItems = localStorage.getItem('shoppingBagData');
 
-        //if products already exists
-        if (loadSavedProducts) {
+        //Load products that already exists
+        if (cachedCartItems && cachedCartItems != "null") {
             //productsRendering(cachedCartItems); //create products items views (if they don't exists)
-            cartItems = JSON.parse(cachedCartItems);
-            //TODO: refresh cart with previously saved selected products for current user
-            //Load cart data 
-            for (var i = 0; i < cartItems.length; i++) {
-                var item = cartItems[i];
-                if (item.name) {
-                    renderItem(item); // NOTE: do not add an item, only render
+            this.cartItems = JSON.parse(cachedCartItems);
+            //refresh cart with previously saved selected products for the user
+            if (this.cartItems) {
+                for (var i = 0; i < this.cartItems.length; i++) {
+                    var item = this.cartItems[i];
+                    if (item.name) {
+                        renderItem(item); // NOTE: do not add an item, only render
+                    }
+                    //addGridRow(item);
+                    //updatePrice(item.price);  //totalPrice = CalculatePrice(cartItems);
                 }
-                //addGridRow(item);
-                //updatePrice(item.price);  //totalPrice = CalculatePrice(cartItems);
             }
         }
 
@@ -406,18 +409,22 @@ var cart = (function ($) {
     function addItem(item) {
         var index = getItemIndex(item.name);
         if (index >= 0) {
-            cartItems[index].count += 1;
-            updateGridRow(index, cartItems[index]);
+            this.cartItems[index].count += 1;
+            updateGridRow(index, this.cartItems[index]);
         } else {
-            var id = cartItems.length;
-                item = {
-                    name: item.name.trim(),
-                    count: 1,
-                    price: item.price,
-                    index: id,
-                    remove: '<div style="text-align: left; cursor: pointer; width: 23px;"' + 'id="draggable-demo-row-' + id + '">X</div>'
-                };
-            cartItems.push(item);
+
+            if (this.cartItems == null)
+                this.cartItems = []; //init empty array
+
+            var id = this.cartItems.length;
+            item = {
+                name: item.name.trim(),
+                count: 1,
+                price: item.price,
+                index: id,
+                remove: '<div style="text-align: left; cursor: pointer; width: 23px;"' + 'id="draggable-demo-row-' + id + '">X</div>'
+            };
+            this.cartItems.push(item);
             addGridRow(item);
         }
         updatePrice(item.price);
@@ -443,10 +450,26 @@ var cart = (function ($) {
         var rowID = $("#jqxgrid").jqxGrid('getrowid', id);
         $("#jqxgrid").jqxGrid('deleterow', rowID);
     };
+
+    function clearGrid() {
+        //Remove grid items
+        $("#jqxgrid").jqxGrid('clear');
+
+        localStorage.removeItem('shoppingBagData');//clear cach : localStorage.setItem('shoppingBagData', null); 
+
+        this.cartItems = []; //null  
+       
+        //Render\update grid of selected products and zero price
+        render();
+        updatePrice(null); //totalPrice = 0;
+    };
+
     function getItemIndex(name) {
-        for (var i = 0; i < cartItems.length; i += 1) {
-            if (cartItems[i].name.trim() === name.trim()) {
-                return i;
+        if (this.cartItems) {
+            for (var i = 0; i < this.cartItems.length; i += 1) {
+                if (cartItems[i].name.trim() === name.trim()) {
+                    return i;
+                }
             }
         }
         return -1;
@@ -507,9 +530,9 @@ var cart = (function ($) {
 
                     //set\update Cart storage
                     var cartItemsJSON = JSON.stringify(cartItems);
-                    sessionStorage.setItem('shoppingBagData', cartItemsJSON);
-                    if ($("#cartItems"))
-                        $("#cartItems").val(cartItemsJSON); //save to pass into controller
+                    localStorage.setItem('shoppingBagData', cartItemsJSON);
+                    if ($("#cartItemsJson"))
+                        $("#cartItemsJson").val(cartItemsJSON); //save to pass into controller
                 }
             });
 
@@ -535,12 +558,11 @@ var cart = (function ($) {
             });
         });
 
-        //attach clear selected producta for shopping
+        //attach clear selected products for shopping
         $('.clear-shopping-cart').unbind('click');
         $('.clear-shopping-cart').on('click', function () {
-            cartItems = null;
-            sessionStorage.setItem('shoppingBagData', cartItems); //clear cached data
-            render(); //render\update grid of selected items
+
+            clearGrid();
         });
     };
 
@@ -553,7 +575,7 @@ var cart = (function ($) {
 
     function init() {
 
-        //var isCartCached = sessionStorage.getItem("userCartCreated");
+        //var isCartCached = localStorage.getItem("userCartCreated");
 
         //theme = getDemoTheme();
 
@@ -561,7 +583,7 @@ var cart = (function ($) {
         addEventListeners();
         addClasses();
 
-        //sessionStorage.setItem('userCartCreated', 1);
+        //localStorage.setItem('userCartCreated', 1);
     };
 
     return { init: init }
