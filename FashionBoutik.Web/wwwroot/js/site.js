@@ -310,13 +310,13 @@ var cart = (function ($) {
         $("#jqxgrid").on('cellclick', function (event) {
             var index = event.args.rowindex;
             if (event.args.datafield == 'remove') {
-                var item = this.cartItems[index];
+                var item = cartItems[index];
                 if (item.count > 1) {
                     item.count -= 1;
                     updateGridRow(index, item);
                 }
                 else {
-                    this.cartItems.splice(index, 1);
+                    cartItems.splice(index, 1);
                     removeGridRow(index);
                 }
                 updatePrice(-item.price);
