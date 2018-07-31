@@ -158,7 +158,7 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadAttachedFiles(int productId)
         {
-            var tempProductAttachments = _cache.Get<List<BinaryObjectModel>>("TempProductAttachments");
+            var tempProductAttachments = _cache.Get<List<BinaryObjectModel>>("TempProductAttachments") ?? new List<BinaryObjectModel>();
             //HttpContext.Session.GetObject<List<BinaryObjectModel>>("TempProductAttachments");
             var product = productId > 0 ? await _productManager.GetProductById(productId) : null;
 
@@ -182,7 +182,7 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
                         string ext = fullFileName.Split('.')[1];
 
                         //Check if file with such name already exists
-                        var existingFileWithName = tempProductAttachments.OrderBy(a => a.Name).LastOrDefault(f => f.Name.StartsWith(name));
+                        var existingFileWithName = tempProductAttachments?.OrderBy(a => a.Name).LastOrDefault(f => f.Name.StartsWith(name));
                         if (existingFileWithName != null)
                         {
                             //var errorMsg = "The file with the same name exists";

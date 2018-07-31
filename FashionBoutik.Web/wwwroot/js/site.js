@@ -12,9 +12,9 @@ $(function () {
 
     //TODO: for correct client-validation in modal window
     $('body').on('shown.bs.modal', function () {
-        var $form = $('form'); //modal - dialog
+                /*var $form = $('form'); //modal - dialog
 
-        /*
+
         $form.submit(function (e) {
             e.preventDefault();
             var form = $('.modal-dialog form');
@@ -77,12 +77,6 @@ $(function () {
             cart.init(); //NOTE: init data from user session cach !!!
         }
     }
-
-    //$("#catalog").on("DOMNodeInserted", function (evt) {
-    //    var target = $(evt.target);
-    //    var tag = target[0].tagName;
-    //    var val = target.text();
-    //});
 });
 
 if (typeof jQuery === "undefined") {

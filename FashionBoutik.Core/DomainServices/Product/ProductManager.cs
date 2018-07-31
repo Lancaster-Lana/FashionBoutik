@@ -76,19 +76,19 @@ namespace FashionBoutik.DomainServices
         {
             var entity = model?.MapTo<Product>();
 
-            //TODO: if there are new attached images - create in DB
-            var newAttachedImages = entity.Attachments.Where(a =>  a.Id <= 0);
-            foreach (var image in newAttachedImages)
-            {
-                image.ProductId = entity.Id;
-                //image.Product = entity;
-                await _imageRepository.Insert(image);
-            }
-
             if (model.Id < 1)
                 await _productRepository.Insert(entity);
             else
                 await _productRepository.Update(entity);
+
+            //TODO: if there are new attached images - create in DB
+            //NOTE the next insert is executed in CORE automatically
+            /*var newAttachedImages = entity.Attachments.Where(a => a.Id <= 0);
+            foreach (var image in newAttachedImages)
+            {
+                image.ProductId = entity.Id; //new or existing product id
+                await _imageRepository.Insert(image);
+            }*/
 
             return true;
         }
