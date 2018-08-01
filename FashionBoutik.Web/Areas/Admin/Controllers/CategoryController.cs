@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using FashionBoutik.DomainServices;
 using FashionBoutik.Models;
-using FashionBoutik.Core.Mappers;
-using FashionBoutik.Web.Areas.Admin.Controllers;
 
 namespace FashionBoutik.Controllers
 {

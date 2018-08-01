@@ -370,6 +370,9 @@ var cart = (function ($) {
 
         var cachedCartItems = localStorage.getItem('shoppingBagData');
 
+        if ($("#cartItemsJson"))
+            $("#cartItemsJson").val(cachedCartItems); //save to hidden field to pass into controller
+
         //Load products that already exists
         if (cachedCartItems && cachedCartItems != "null") {
             //productsRendering(cachedCartItems); //create products items views (if they don't exists)
@@ -385,6 +388,9 @@ var cart = (function ($) {
                     //updatePrice(item.price);  //totalPrice = CalculatePrice(cartItems);
                 }
             }
+        }
+        else {
+            updatePrice(0); //totalPrice = 0;
         }
 
         //Attach D&D handler to each product
@@ -449,13 +455,11 @@ var cart = (function ($) {
         //Remove grid items
         $("#jqxgrid").jqxGrid('clear');
 
-        localStorage.removeItem('shoppingBagData');//clear cach : localStorage.setItem('shoppingBagData', null); 
+        localStorage.removeItem('shoppingBagData');//clear cach
 
         this.cartItems = []; //null  
-       
         //Render\update grid of selected products and zero price
-        render();
-        updatePrice(null); //totalPrice = 0;
+        render(); 
     };
 
     function getItemIndex(name) {
@@ -525,8 +529,6 @@ var cart = (function ($) {
                     //set\update Cart storage
                     var cartItemsJSON = JSON.stringify(cartItems);
                     localStorage.setItem('shoppingBagData', cartItemsJSON);
-                    if ($("#cartItemsJson"))
-                        $("#cartItemsJson").val(cartItemsJSON); //save to pass into controller
                 }
             });
 

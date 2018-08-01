@@ -142,6 +142,34 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
             return PartialView(model); //TODO: view with validation errors
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id > 0)
+            {
+                var model = await _productManager.GetProductById(id);
+                return PartialView("ConfirmDelete", model);
+            }
+
+            AddError("Cannot delete empty product");
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ConfirmDelete(ProductModel model)
+        {
+            if (model != null)
+            {
+                var result = await _productManager.DeleteProduct(model.Id);
+                if (result)
+                {
+                    return RedirectToAction("List");
+                }
+            }
+            AddError("Cannot delete empty product.");
+            return View();
+        }
+
         #endregion
 
 
