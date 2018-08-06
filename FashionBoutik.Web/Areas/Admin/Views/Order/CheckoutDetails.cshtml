@@ -1,7 +1,5 @@
-﻿@*<div class="navbar bg-inverse ">
-    <a class="navbar-brand text-white"> STORE</a>
-</div>*@
-@model List<CartItemModel>
+﻿@model OrderAddressModel
+
 @using FashionBoutik.Models
 
 @{
@@ -10,28 +8,45 @@
 
 <h2 class="text-center mt-1">Step 1: Your Details</h2>
 
-<form  method="post"
-      asp-area="Admin" asp-controller="Order" asp-action="Checkout">
+<form method="post" class="form-horizontal">
     <div class="form-group">
         <label>Name</label>
-        <input #name="ngModel" name="name" class="form-control"
-               [(ngModel)]="order.name" required />
-        <div *ngIf="name.invalid" class="text-danger">
-            Please enter your name
-        </div>
+        <input asp-for="Name" class="form-control" required value="Order from @DateTime.Now for 'Your Name'" />
     </div>
     <div class="form-group">
-        <label>Address</label>
-        <input #address="ngModel" name="street" class="form-control"
-               [(ngModel)]="order.address" required />
-        <div *ngIf="address.invalid" class="text-danger">
-            Please enter your address
-        </div>
+        @*@Html.Partial("AddressView", Model.ShippingAddress)*@
+        @*<input asp-for="ShippingAddress" class="form-control" required />*@
+
+        <fieldset>
+            <label>Shipping address : </label>
+            <div class="form-group">
+                <label asp-for="ShippingAddress.Country" class="col-md-3 control-label"></label>
+                <input asp-for="ShippingAddress.Country" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ShippingAddress.City" class="col-md-3 control-label"></label>
+                <input asp-for="ShippingAddress.City" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ShippingAddress.State" class="col-md-3 control-label"></label>
+
+                <input asp-for="ShippingAddress.State" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ShippingAddress.ZipCode" class="col-md-3 control-label"></label>
+                <input asp-for="ShippingAddress.ZipCode" maxlength="5" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ShippingAddress.Street" class="col-md-3 control-label"></label>
+
+                <input asp-for="ShippingAddress.Street" />
+            </div>
+        </fieldset>
+
     </div>
-    <div class="text-center btn-group btn-group-lg">
-        <a onclick="history.go(-1);">Back</a>
-        @*<button class="btn btn-outline-primary" routerLink="/cart">Back</button>*@
-        <button class="btn btn-danger" type="submit" [disabled]="detailsForm.invalid">
+    <div class="btn-group btn-group-lg">
+        <a class="btn btn-link" onclick="history.go(-1);">Back</a>
+        <button class="btn btn-danger" type="submit">
             Next
         </button>
     </div>

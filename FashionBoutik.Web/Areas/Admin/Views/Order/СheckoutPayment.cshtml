@@ -1,7 +1,4 @@
-﻿<!--<div class="navbar bg-inverse ">
-  <a class="navbar-brand text-white"> STORE</a>
-</div>-->
-@model CartModel
+﻿@model OrderPaymentModel
 @using FashionBoutik.Models
 @{
     Layout = "_CheckoutLayout";
@@ -9,36 +6,27 @@
 
 <h2 class="text-center mt-1">Step 2: Payment</h2>
 
-<form novalidate #paymentForm="ngForm"
-      method="POST"
-      asp-area="Admin" asp-controller="Order" asp-action="СheckoutPayment">
+<form method="POST" asp-area="Admin" asp-controller="Order" asp-action="СheckoutPayment"
+      class="form-horizontal">
     <div class="form-group">
-        <label>Card Number</label>
-        <input #cardNumber="ngModel" name="cardNumber" class="form-control"
-               [(ngModel)]="order.payment.cardNumber" required />
-        <div *ngIf="cardNumber.invalid" class="text-danger">
-            Please enter your card number
-        </div>
+        <label class="col-md-3">Card Number</label>
+        <input asp-for="CardNumber" type="number" required  maxlength="20"  />
+        @Html.ValidationMessageFor(m => m.CardNumber, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-3">Card Expiry</label>
+        <input asp-for="CardExpiry" type="date" required data-date-inline-picker="true" />
+        @Html.ValidationMessageFor(m => m.CardExpiry, "", new { @class = "text-danger" })
     </div>
     <div class="form-group">
-        <label>Card Expiry</label>
-        <input #cardExpiry="ngModel" name="cardExpiry" class="form-control"
-               [(ngModel)]="order.payment.cardExpiry" required />
-        <div *ngIf="cardExpiry.invalid" class="text-danger">
-            Please enter your card expiry
-        </div>
+        <label class="col-md-3">Security Code</label>
+        <input asp-for="CardSecurityCode" required maxlength="4"  />
+        @Html.ValidationMessageFor(m => m.CardSecurityCode, "", new { @class = "text-danger" })
     </div>
-    <div class="form-group">
-        <label>Security Code</label>
-        <input #cardCode="ngModel" name="cardCode" class="form-control"
-               [(ngModel)]="order.payment.cardSecurityCode" required />
-        <div *ngIf="cardCode.invalid" class="text-danger">
-            Please enter your security code
-        </div>
-    </div>
-    <div class="text-center btn-group btn-group-sm">
-        <a onclick="history.go(-1);" class="btn-link">Back</a>
-        <button type="submit" class="btn btn-danger" [disabled]="paymentForm.invalid">
+    <div class="btn-group btn-group-lg">
+        <a class="btn btn-link" onclick="history.go(-1);">Back</a>
+        <button type="submit" class="btn btn-danger">
             Next
         </button>
     </div>

@@ -19,5 +19,10 @@ namespace FashionBoutik.Models
         public decimal ConversionRate { get; set; }
         public Int16 CurrencyBase { get; set; }
         public byte Decimals { get; set; }
+
+        public override string ToString()
+        {
+            return Symbol;
+        }
     }
 }

@@ -1,0 +1,22 @@
+﻿
+@{
+    Layout = "_Layout";
+}
+
+@section Scripts
+{
+    <script>
+        $(function () {
+            //clear shopping bag automatically after shopping made
+            if (cart) {
+                cart.clear();
+            }
+        });
+
+    </script>
+}
+    <div class="alert alert-success text-center">
+        <h2> Congrats ! </h2>
+        <h3> Your order has been submitted successfully !</h3>
+        @*<a asp-area="" asp-controller="Home" asp-action="Index">Go to main board</a>*@
+    </div>

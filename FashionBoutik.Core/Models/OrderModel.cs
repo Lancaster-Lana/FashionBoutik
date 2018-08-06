@@ -1,9 +1,33 @@
-﻿using FashionBoutik.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FashionBoutik.Models
 {
+
+    public class OrderAddressModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public DateTime CreatedDate { get; set; }
+
+        public AddressModel ShippingAddress { get; set; } = new AddressModel();
+    }
+
+    public class OrderPaymentModel
+    {
+        public string CardNumber { get; set; }
+
+        public string CardExpiry { get; set; }
+
+        public int CardSecurityCode { get; set; }
+
+        public string AuthCode { get; set; }
+
+
+        public decimal Total { get; set; } = 0;
+    }
+
     /// <summary>
     /// Order is to create invoice with selected shopping Cart products
     /// </summary>
@@ -27,15 +51,15 @@ namespace FashionBoutik.Models
         /// </summary>
         public ICollection<CartItemModel> OrderItems { get; set; } = new List<CartItemModel>();
 
-        public Address ShippingAddress { get; set; }
+        public AddressModel ShippingAddress { get; set; }
 
         public bool Delivered { get; set; } = false;
 
         public DateTime? DeliveryDate { get; set; }
 
-        public Address BillingAddress { get; set; }
+        public AddressModel BillingAddress { get; set; }
 
-        public Payment Payment { get; set; }
+        public PaymentModel Payment { get; set; } = new PaymentModel(); //to init default payment
 
         /// <summary>
         /// TODO:
@@ -51,6 +75,15 @@ namespace FashionBoutik.Models
                     total += item.Product.PricePerUnit.Value * item.Count;
                 }
                 return total;
+            }
+        }
+
+        //TODO:
+        public string CurrencySymbol
+        {
+            get
+            {
+                return OrderItems.FirstOrDefault()?.Product?.PricePerUnit?.Currency?.CurrencyCode;
             }
         }
     }

@@ -9,15 +9,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Webpay.Integration;
-using FashionBoutik.DomainServices;
-using FashionBoutik.Models;
-using FashionBoutik.Entities;
+using WebpayWS;
 using Webpay.Integration.Util.Testing;
 using Webpay.Integration.Hosted.Helper;
 using Webpay.Integration.Util.Security;
 using Webpay.Integration.CONST;
 using Webpay.Integration.Order.Row;
-using WebpayWS;
+using FashionBoutik.DomainServices;
+using FashionBoutik.Models;
+using FashionBoutik.Entities;
+using Microsoft.Extensions.Caching.Memory;
+using FashionBoutik.Web.Utils;
 
 namespace FashionBoutik.Web.Controllers
 {
@@ -27,13 +29,18 @@ namespace FashionBoutik.Web.Controllers
     {
         private readonly IOrderManager _manager;
         private readonly UserManager<User> _userManager;
+
+        private readonly IMemoryCache _cache;
         private readonly IHttpContextAccessor _context; //TODO: can be used instead of MemoryCache
 
-        public OrderController(IOrderManager manager, UserManager<User> userManager,
+        public OrderController(IOrderManager manager, UserManager<User> userManager, 
+            IMemoryCache cache,
             IHttpContextAccessor context)
         {
             _manager = manager;
             _userManager = userManager;
+
+            _cache = cache;
             _context = context;
         }
 
@@ -45,36 +52,6 @@ namespace FashionBoutik.Web.Controllers
             return await _manager.GetAllOrders();//.Include(o => o.Products).Include(o => o.Payment);
         }
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public IActionResult CreateOrder(OrderModel order)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-
-        //        //order.Id = 0;
-        //        //order.Delivered = false;
-        //        order.Payment.Total = order.Total //GetTotalPrice
-
-        //        //ProcessPayment(order.Payment);
-        //        if (order.Payment.AuthCode != null)
-        //        {
-        //            _manager.Add(order);
-        //            _manager.SaveChanges();
-        //            return Ok(new
-        //            {
-        //                orderId = order.OrderId,
-        //                authCode = order.Payment.AuthCode,
-        //                amount = order.Payment.Total
-        //            });
-        //        }
-        //        else
-        //        {
-        //            return BadRequest("Payment rejected");
-        //        }
-        //    }
-        //    return BadRequest(ModelState);
-        //}
 
         #region private methods
 
@@ -118,54 +95,77 @@ namespace FashionBoutik.Web.Controllers
 
         #region Backet \ Shopping Cart Methods
 
-
-        [Authorize]
+        //[ValidateAntiForgeryToken]
+        //[Authorize]
         [HttpGet]
-        public async Task<IActionResult> CheckoutDetails(string cartItemsJson)//Dictionary<string, int> items)
+        public async Task<IActionResult> CheckoutDetails(string cartItemsJson)
         {
-            //Get cached sessionStorage data
-            //var selectedProducts = Request.Form["cartItems"];  //var caretItems = _context.HttpContext.Session.GetString("shoppingBagData");
+            var orderedProducts = JsonConvert.DeserializeObject<List<CartItemModel>>(cartItemsJson); //await GetBasketViewModelAsync();
 
-            var basketViewModel = JsonConvert.DeserializeObject<List<CartItemModel>>(cartItemsJson); //await GetBasketViewModelAsync();
-
-            //await _basketService.SetQuantities(basketViewModel.Id, items);
-
-            //await _orderService.CreateOrderAsync(basketViewModel.Id, basketViewModel.ShippingAddress);
-
-            //await _basketService.DeleteBasketAsync(basketViewModel.Id); //clear shopping bag
-
-            //Preview your order (invoice) 
-            return View("CheckoutDetails", basketViewModel);
-        }
-
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> Checkout(List<CartItemModel> seletedItems)
-        {
             var userId = _context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-            CartModel model = new CartModel
-            {
+            var newOrderModel = new OrderModel() {
+                OrderItems = orderedProducts,
                 BuyerId = currentUser.Id,
-                CartItems = seletedItems
+                CreatedDate = DateTime.Now,
+                Delivered = false,
+                //BillingAddress= FILL UP
             };
-            if (ModelState.IsValid)
-                return View("СheckoutPayment", model);
 
-            return View(seletedItems);
+            //Init & save new order 1st step into cach (for next steps)
+            _cache.Set("NewOrder", newOrderModel);
+           
+            //HttpContext.Session.SetObject("NewOrder", newOrderModel); //HttpContext.Items.Add("NewOrder", newOrderModel);
+
+            return View(new OrderAddressModel()); //go to step 2
         }
 
+
+        //Authorize]
         [HttpPost]
-        public async Task<IActionResult> СheckoutPayment(CartModel model)
+        public async Task<IActionResult> CheckoutDetails(OrderAddressModel model)
         {
             if (ModelState.IsValid)
             {
-                //TODO: validate if credit card is valid
-                return View("OrderConfirmation", model); //go to step of final payment
+                //Update fields of nthe order during wizard
+                var newOrderModel = _cache.Get<OrderModel>("NewOrder"); //HttpContext.Session.GetObject<OrderModel>("NewOrder") //((OrderModel)_context.HttpContext.Items["NewOrder"]);
+                newOrderModel.Name = model.Name;
+                newOrderModel.ShippingAddress = model.ShippingAddress;
+                //and save order again (for the next wizard step)
+                _cache.Set("NewOrder", newOrderModel);
+
+                //Go the next step 2 - payment options
+                return View("СheckoutPayment", new OrderPaymentModel());
+            }
+            return View(model);// model.OrderItems); //show selected items with errors
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> СheckoutPayment(OrderPaymentModel paymentModel)
+        {
+            if (ModelState.IsValid)
+            {
+                //TODO: validate if credit card is valid, balance is enough
+                //model.Payment.CardNumber
+
+                //2. Retrieve saved order on the previous steps
+                var newOrderModel = _cache.Get<OrderModel>("NewOrder");
+
+                newOrderModel.Payment = new PaymentModel
+                {
+                    AuthCode = paymentModel.AuthCode,
+                    CardNumber = paymentModel.CardNumber,
+                    CardExpiry = paymentModel.CardExpiry,
+                    CardSecurityCode = paymentModel.CardSecurityCode,
+                    Total = paymentModel.Total // TODO: remove - will bre recalculated
+                };
+                     
+
+                return View("OrderConfirmation", newOrderModel); //go to step of final payment
             }
 
-            return View(model);
+            return View(paymentModel);
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace FashionBoutik.Web.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> OrderConfirmation(CartModel model)
+        public async Task<IActionResult> OrderConfirmation(OrderModel model)
         {
             if (ModelState.IsValid)
             {
@@ -222,7 +222,11 @@ namespace FashionBoutik.Web.Controllers
 
                 MakeCardPayment();
 
-                //return Content(html);
+                //await _basketService.SetQuantities(basketViewModel.Id, items);
+
+                //await _orderService.CreateOrderAsync(basketViewModel.Id, basketViewModel.ShippingAddress);
+
+                //await _basketService.DeleteBasketAsync(basketViewModel.Id); //clear shopping bag
 
                 //TODO: if payment transaction succeded
                 return View("OrderConfirmationSuccess", model);//show succes page with redirect button to main menu
@@ -364,6 +368,36 @@ namespace FashionBoutik.Web.Controllers
         }
 
         #endregion
-
     }
 }
+
+//[HttpPost]
+//[AllowAnonymous]
+//public IActionResult CreateOrder(OrderModel order)
+//{
+//    if (ModelState.IsValid)
+//    {
+
+//        //order.Id = 0;
+//        //order.Delivered = false;
+//        order.Payment.Total = order.Total //GetTotalPrice
+
+//        //ProcessPayment(order.Payment);
+//        if (order.Payment.AuthCode != null)
+//        {
+//            _manager.Add(order);
+//            _manager.SaveChanges();
+//            return Ok(new
+//            {
+//                orderId = order.OrderId,
+//                authCode = order.Payment.AuthCode,
+//                amount = order.Payment.Total
+//            });
+//        }
+//        else
+//        {
+//            return BadRequest("Payment rejected");
+//        }
+//    }
+//    return BadRequest(ModelState);
+//}

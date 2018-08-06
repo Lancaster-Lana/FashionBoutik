@@ -26,6 +26,10 @@ namespace FashionBoutik.Models
         //}
     }
 
+    /// <summary>
+    /// Selected products (and its amount=count)
+    /// </summary>
+
     public class CartItemModel
     {
         /// <summary>

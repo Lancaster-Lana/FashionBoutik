@@ -59,20 +59,22 @@ namespace FashionBoutik.Web
 
             services.Configure<FormOptions>(options =>
             {
-                options.MultipartBodyLengthLimit = 100000000; //increase request symbols count
+                //increase request symbols count
+                options.ValueLengthLimit = int.MaxValue;
+                options.MultipartBodyLengthLimit = int.MaxValue; // In case of multipart
             });
 
             //INIT AUTHENTICATION with social networks
             services.AddAuthentication()
-                .AddTwitter(twOptions =>
-                {
-                    twOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"];
-                    twOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
-                })
                 .AddFacebook(facebookOptions =>
                 {
                     facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
                     facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+                })
+                .AddTwitter(twOptions =>
+                {
+                    twOptions.ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"];
+                    twOptions.ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"];
                 })
                 .AddGoogle(googleOptions =>
                 {
@@ -140,6 +142,8 @@ namespace FashionBoutik.Web
 
             services.AddDistributedMemoryCache();
 
+            services.AddMemoryCache();
+
             //INIT Session (also can be accessed by DI with IHttpContextAccessor in non-controller class)
             services.AddSession(options =>
             {
@@ -189,7 +193,7 @@ namespace FashionBoutik.Web
                 //});
                 //options.OperationFilter<AuthorizeCheckOperationFilter>();
             });
-            
+
             //services.AddCors(options =>
             //{
             //    options.AddPolicy("CorsPolicy",
@@ -238,7 +242,9 @@ namespace FashionBoutik.Web
             app.UseAuthentication(); //app.UseIdentity();
 
             // IMPORTANT: This session call MUST go before UseMvc()
+
             app.UseSession();
+            //app.UseHttpContextItemsMiddleware();
 
             app.UseMvc(routes =>
             {

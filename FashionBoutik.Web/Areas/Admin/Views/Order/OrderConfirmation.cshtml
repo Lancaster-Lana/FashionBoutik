@@ -1,4 +1,4 @@
-﻿@model CartModel
+﻿@model OrderModel
 @using FashionBoutik.Models
 @{
     Layout = "_CheckoutLayout";
@@ -6,14 +6,10 @@
 
 <h2 class="text-center">Order Confirmation</h2>
 
-<form method="post"
-      asp-area="Admin" asp-controller="Order" asp-action="OrderConfirmation">
+<form method="post" asp-area="Admin" asp-controller="Order" asp-action="OrderConfirmation" class="form-inline">
     <div class="container">
-        <!-- Display order summary -->
         <div class="text-center">
-            @Html.Partial("CheckoutSummary", new OrderModel() {
-                OrderItems = @Model.CartItems
-              })
+            @Html.Partial("CheckoutSummary", @Model)
         </div>
 
         @*<div class="alert-success">
@@ -26,11 +22,9 @@
 
         @*<div class="progress-bar-info" />*@
 
-        <div class="btn btn-group btn-group-sm">
-            @*<button class="btn btn-primary" routerLink="/">Done</button>*@
+        <div class="btn-group btn-group-lg">
+            <a class="btn btn-link" onclick="history.go(-1);" >Back</a>
             <button type="submit" class="btn btn-success">Done</button>
-            <!-- if cancel -->
-            <a onclick="history.go(-1);" class="btn-link">Back</a>
             <a asp-area="Admin" asp-controller="Order" asp-action="CheckoutCancel" class="btn btn-danger">Cancel</a>
             <a asp-area="Admin" asp-controller="Order" asp-action="CheckoutContinueShopping" class="btn btn-info">Continue Shopping</a>
         </div>

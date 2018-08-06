@@ -72,9 +72,8 @@ $(function () {
             $.Board.rightSideBar.activate();
 
             //Shopping cart init (only on non-admin dashboard)
+            cart.init(); //NOTE: init data from the user session cach
 
-            //if (!cartNotInited)
-            cart.init(); //NOTE: init data from user session cach !!!
         }
     }
 });
@@ -266,24 +265,6 @@ var cart = (function ($) {
         totalPrice = 0;
     theme = $.jqx.theme;
 
-    //var products = $.map('.draggable-demo-product', function () {
-    //    var header = $(this).children(".draggable-demo-product-header");
-    //    var name = $(header).text();//.children(".draggable-demo-product-header-label").val();
-    //    var picture = $(this).children(".draggable-demo-product-price").val();
-    //    var priceVal = $(this).find('.draggable-demo-product-price').text().replace('Price: $', ''); //$(this).children("img").attr('src');
-    //    return name + ':' + { pic: picture, price: priceVal };
-    //});
-    //var products = {
-    //    'Retro Rock T-shirt': {
-    //        pic: 'black-retro-rock-band-guitar-controller.png',
-    //        price: 15
-    //    },
-    //    'Lucky T-shirt': {
-    //        pic: 'bright-green-gettin-lucky-in-kentucky.png',
-    //        price: 18
-    //    },
-    //},
-
     /*render shopping cart */
     function gridRendering() {
         $("#jqxgrid").jqxGrid(
@@ -313,7 +294,7 @@ var cart = (function ($) {
                     cartItems.splice(index, 1);
                     removeGridRow(index);
                 }
-                updatePrice(-item.price);
+                updatePrice(-item.product.pricePerUnit.value);
             }
         });
     };
@@ -377,15 +358,14 @@ var cart = (function ($) {
         if (cachedCartItems && cachedCartItems != "null") {
             //productsRendering(cachedCartItems); //create products items views (if they don't exists)
             this.cartItems = JSON.parse(cachedCartItems);
-            //refresh cart with previously saved selected products for the user
+            //refresh cart with previously selected products by the user
             if (this.cartItems) {
                 for (var i = 0; i < this.cartItems.length; i++) {
-                    var item = this.cartItems[i];
-                    if (item.name) {
-                        renderItem(item); // NOTE: do not add an item, only render
+                    var cartItem = this.cartItems[i];
+                    if (cartItem.name) {
+                        renderItem(cartItem); // NOTE: do not add an item, only render
                     }
-                    //addGridRow(item);
-                    //updatePrice(item.price);  //totalPrice = CalculatePrice(cartItems);
+                    updatePrice(cartItem.product.pricePerUnit.value);  //totalPrice = CalculatePrice(cartItems);
                 }
             }
         }
@@ -400,14 +380,14 @@ var cart = (function ($) {
     };
 
     //Simply render existing cart item (after redirect between pages)
-    function renderItem(item) {
-        //var index = getItemIndex(item.name);
-        addGridRow(item);
-        updatePrice(item.price);
-    };
+    function renderItem(cartItem) {
+        addGridRow(cartItem);
+        if (cartItem.Product && cartItem.Product.PricePerUnit)
+            updatePrice(cartItem.Product.PricePerUnit.Value); //??
+    };  
     //Add and render item, if D&D selected product
-    function addItem(item) {
-        var index = getItemIndex(item.name);
+    function addItem(name, price, currency) {
+        var index = getItemIndex(name);
         if (index >= 0) {
             this.cartItems[index].count += 1;
             updateGridRow(index, this.cartItems[index]);
@@ -417,19 +397,28 @@ var cart = (function ($) {
                 this.cartItems = []; //init empty array
 
             var id = this.cartItems.length;
-            item = {
-                name: item.name.trim(),
-                count: 1,
-                price: item.price,
+            var item = {
                 index: id,
+                name: name.trim(),
+                count: 1,
+
+                product: {
+                    //status : 
+                    //name: 
+                    pricePerUnit: {
+                        value: price,
+                        currency: { symbol: currency }
+                    },
+                   
+                },
                 remove: '<div style="text-align: left; cursor: pointer; width: 23px;"' + 'id="draggable-demo-row-' + id + '">X</div>'
             };
             this.cartItems.push(item);
             addGridRow(item);
         }
-        updatePrice(item.price);
+        updatePrice(price, currency);
     };
-    function updatePrice(price) {
+    function updatePrice(price, currency) {
         if (isNaN(price))
             alert('Wrong price: ' + price);
         if ((price) && (typeof totalPrice !== 'undefined'))
@@ -437,7 +426,11 @@ var cart = (function ($) {
         else
             totalPrice = 0;
 
-        $('#total').html('$ ' + totalPrice);
+        //TODO: convert price to $ during current currency rate
+        if (!currency)
+            currency = '$';
+
+        $('#total').html(currency +' ' + totalPrice);
     };
     function addGridRow(row) {
         $("#jqxgrid").jqxGrid('addrow', null, row);
@@ -452,14 +445,20 @@ var cart = (function ($) {
     };
 
     function clearGrid() {
-        //Remove grid items
-        $("#jqxgrid").jqxGrid('clear');
 
-        localStorage.removeItem('shoppingBagData');//clear cach
+        //clear cached selected products
+
+        localStorage.removeItem('shoppingBagData');
 
         this.cartItems = []; //null  
-        //Render\update grid of selected products and zero price
-        render(); 
+
+        //Remove shopping bag (grid items)
+        if ($("#jqxgrid")) {
+            $("#jqxgrid").jqxGrid('clear');
+
+            //Render\update grid of selected products and zero price
+            render();
+        }
     };
 
     function getItemIndex(name) {
@@ -514,21 +513,28 @@ var cart = (function ($) {
                     price = $(elem).find('.draggable-demo-product-price').text().replace('Price: $', '');
                 price = parseInt(price, 10);
 
+                var currency = "$"; // currency TODO: get by reqular expression
+
                 $(this).jqxDragDrop('data', {
                     price: price,
-                    name: tshirt
+                    name: tshirt,
+                    unit: currency
                 });
             });
 
             $(elem).on('dragEnd', function (event) {
                 $('#cart').css('border', '2px dashed #aaa');
                 if (onCart) {
-                    addItem({ price: event.args.price, name: event.args.name });
+                    addItem( event.args.name, event.args.price, event.args.unit);
+
                     onCart = false;
 
                     //set\update Cart storage
                     var cartItemsJSON = JSON.stringify(cartItems);
                     localStorage.setItem('shoppingBagData', cartItemsJSON);
+
+                    if ($("#cartItemsJson"))
+                        $("#cartItemsJson").val(cartItemsJSON); //save to pass into controller
                 }
             });
 
@@ -562,26 +568,11 @@ var cart = (function ($) {
         });
     };
 
-    //this.init = function () {
-    //    //theme = getDemoTheme();
-    //    render(false);
-    //    addEventListeners();
-    //    addClasses();
-    //};
-
-    function init() {
-
-        //var isCartCached = localStorage.getItem("userCartCreated");
-
-        //theme = getDemoTheme();
-
+    function initBag() {
         render();
         addEventListeners();
         addClasses();
-
-        //localStorage.setItem('userCartCreated', 1);
     };
-
-    return { init: init }
+    return { init: initBag, clear: clearGrid }
 
 })(jQuery);
