@@ -6,8 +6,7 @@
 
 <h2 class="text-center mt-1">Step 2: Payment</h2>
 
-<form method="POST" asp-area="Admin" asp-controller="Order" asp-action="СheckoutPayment"
-      class="form-horizontal">
+<form asp-antiforgery="true" method="POST" asp-area="Admin" asp-controller="Order" asp-action="СheckoutPayment" class="form-horizontal">
     <div class="form-group">
         <label class="col-md-3">Card Number</label>
         <input asp-for="CardNumber" type="number" required  maxlength="20"  />

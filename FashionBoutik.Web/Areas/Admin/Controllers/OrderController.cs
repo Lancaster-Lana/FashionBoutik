@@ -124,6 +124,7 @@ namespace FashionBoutik.Web.Controllers
 
         //Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CheckoutDetails(OrderAddressModel model)
         {
             if (ModelState.IsValid)
@@ -142,6 +143,7 @@ namespace FashionBoutik.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> СheckoutPayment(OrderPaymentModel paymentModel)
         {
             if (ModelState.IsValid)

@@ -8,7 +8,7 @@
 
 <h2 class="text-center mt-1">Step 1: Your Details</h2>
 
-<form method="post" class="form-horizontal">
+<form asp-antiforgery="true" method="post" class="form-horizontal" >
     <div class="form-group">
         <label>Name</label>
         <input asp-for="Name" class="form-control" required value="Order from @DateTime.Now for 'Your Name'" />

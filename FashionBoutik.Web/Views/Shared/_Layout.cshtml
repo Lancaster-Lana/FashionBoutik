@@ -13,20 +13,20 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
-       
+
         @RenderSection("Styles", false)
         <link href="~/bundles/libs.css" rel="stylesheet" />
 
     </environment>
     <environment names="Staging,Production">
-        <link href="@Url.Content("~/css/site.min.css")" rel="stylesheet" />
+        <link href="@Url.Content(" ~/css/site.min.css")" rel="stylesheet" />
 
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         @RenderSection("Styles", false)
-        <link href="@Url.Content("~/css/full_screen_preview.min.css")" rel="stylesheet" />
-        <link href="@Url.Content("~/css/prettify.min.css")" rel="stylesheet" />
+        <link href="@Url.Content(" ~/css/full_screen_preview.min.css")" rel="stylesheet" />
+        <link href="@Url.Content(" ~/css/prettify.min.css")" rel="stylesheet" />
         @*For social buttons*@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
@@ -39,33 +39,44 @@
 <body>
     <header>
         <!--Right top side login menu-->
-        @*<div class="login_menu">*@
-        <div class="navbar navbar-fixed-top">
-            @Html.Partial("_UserHeader")
-        </div>
-        <span>
-            <h1 class="stylishHeader">New Fashion </h1>
-            <h2 class="stylishHeader">your style revolution </h2>
-        </span>
+        @*<div class="login_menu">
+            *@
+            <div class="navbar navbar-fixed-top">
+                @Html.Partial("_UserHeader")
+            </div>
+            <span>
+                <h1 class="stylishHeader">New Fashion </h1>
+                <h2 class="stylishHeader">your style revolution </h2>
+            </span>
 
-        <!--Common top right side menu-->
-        <nav>
-            <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Business style", "Index", "Business")</li>
-                <li>@Html.ActionLink("Furshet style", "Index", "Furshet")</li>
-                <li>@Html.ActionLink("Season clothes", "Index", "Season")</li>
-                <li>@Html.ActionLink("Wedding fashion", "Index", "Wedding")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-            </ul>
-            <!-- Right client menu button-->
-            <ul class="nav navbar-nav navbar-right">
-                <li class="pull-right">
-                    <a href="javascript:void(0);" class="js-right-sidebar" data-close="true">
-                        <i class="material-icons">more_vert</i>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+            <!--Common top right side menu-->
+            <nav>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a asp-area="" asp-controller="Business" asp-action="Index">Business style</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Furshet" asp-action="Index">Furshet style</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Season" asp-action="Index">Season clothes</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Wedding" asp-action="Index">Wedding fashion</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    </li>
+                </ul>
+                <!-- Right client menu button-->
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="pull-right">
+                        <a href="javascript:void(0);" class="js-right-sidebar" data-close="true">
+                            <i class="material-icons">more_vert</i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
     </header>
 
     <div id="shop" class="row content-body draggable-demo-shop jqx-rc-all">
@@ -80,7 +91,8 @@
                 <li role="presentation" class="active">
                     <a href="#mybag" data-toggle="tab" aria-expanded="true"> My Shopping Cart</a>
                 </li>
-                @*<li role="presentation" class=""><a href="#skins" data-toggle="tab" aria-expanded="false">SKINS</a></li>*@
+                @*
+                <li role="presentation" class=""><a href="#skins" data-toggle="tab" aria-expanded="false">SKINS</a></li>*@
             </ul>
             <div class="tab-content">
                 <div id="mybag" role="tabpanel" class="tab-pane fade active in">

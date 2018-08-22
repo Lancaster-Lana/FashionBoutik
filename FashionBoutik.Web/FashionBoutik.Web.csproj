@@ -26,7 +26,6 @@
     <Compile Remove="Controllers\UserGroupController 2.cs" />
     <Compile Remove="Utils\GoogleShopping.cs" />
     <Compile Remove="Utils\PayExManager.cs" />
-    <Compile Remove="wwwroot\WebApi\SessionController.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -335,7 +334,6 @@
 
   <ItemGroup>
     <Folder Include="Connected Services\" />
-    <Folder Include="wwwroot\WebApi\" />
     <Folder Include="Views\Sport\" />
   </ItemGroup>
 
