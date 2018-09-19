@@ -6,7 +6,7 @@
 @inject RoleManager<Role> RoleManager
 @{
     var allRoles = Model.ApplicationRoles ?? RoleManager.Roles.ToList();
-    var allUsersGroups = Model.UsersGroups;// ?? todo;
+    var allUsersGroups = Model.AllUsersGroups ?? new List<UsersGroupModel>();
 }
 
 @using (Html.BeginForm("Add", "User", new { area = "Admin", controller = "User" }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
@@ -30,15 +30,14 @@
                 <div class="form-group">
                     <label asp-for="Name" class="col-md-3 col-sm-3 control-label"></label>
                     <div class="col-md-6">
-                        <input asp-for="Name" class="form-control" />
-                        @*@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })*@
+                        <input required asp-for="Name" class="form-control"  />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="Email" class="col-md-3 col-sm-3 control-label"></label>
                     <div class="col-md-6">
-                        <input asp-for="Email" class="form-control" />
+                        <input required asp-for="Email" type="email" class="form-control" />
                         <span asp-validation-for="Email" class="text-danger"></span>
                     </div>
                 </div>
@@ -47,17 +46,21 @@
                     <div class="col-md-6">
                         <select class="form-control" data-val="true" data-val-required="The Role is required (*)"
                                 asp-for="ApplicationRoleId" asp-items="@(new SelectList(allRoles,"Id","Name"))"></select>
-                        <span asp-validation-for="ApplicationRoleId" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="UsersGroupId" class="col-md-3 col-sm-3 control-label"></label>
+                    <label asp-for="UsersGroupsIds" class="col-md-3 col-sm-3 control-label"> Users Group</label>
                     <div class="col-md-6">
-                        <select class="form-control" data-val="true" data-val-required="The UsersGroup is required (*)"
-                                asp-for="UsersGroupId" asp-items="@(new SelectList(allUsersGroups,"Id","Name"))"></select>
-                        <span asp-validation-for="UsersGroupId" class="field-validation-error  text-danger"
-                              data-valmsg-for="UsersGroupId"
-                              data-valmsg-replace="true"></span>
+                        @if (allUsersGroups != null)
+                        {
+                            @*<select name="multicheckbox[]" multiple="multiple" class="4colactive form-control">*@
+
+                            <select class="form-control show-tick multi-select"
+                                    multiple="multiple" data-val="true" data-val-required="The UsersGroup is required (*)"
+                                    asp-for="UsersGroupsIds" asp-items="@(new SelectList(allUsersGroups,"Id","Name"))">
+                                @*<option>Please select</option>*@
+                            </select>                        
+                        }
                     </div>
                 </div>
             </div>
@@ -65,14 +68,14 @@
                 <div class="form-group">
                     <label asp-for="UserName" class="col-md-3 col-sm-3 control-label"></label>
                     <div class="col-md-6">
-                        <input asp-for="UserName" class="form-control" />
+                        <input required asp-for="UserName" class="form-control" />
                         <span asp-validation-for="UserName" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="Password" class="col-md-3 col-sm-3 control-label"></label>
                     <div class="col-md-6">
-                        <input asp-for="Password" class="form-control" />
+                        <input required asp-for="Password" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                         @*<span class="field-validation-error text-danger"
                             data-valmsg-for="Password"
@@ -82,7 +85,7 @@
                 <div class="form-group">
                     <label asp-for="ConfirmPassword" class="col-md-3 col-sm-3 control-label"></label>
                     <div class="col-md-6">
-                        <input asp-for="ConfirmPassword" class="form-control" />
+                        <input required asp-for="ConfirmPassword" class="form-control" />
                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                     </div>
                 </div>

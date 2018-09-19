@@ -105,7 +105,6 @@
     <None Include="wwwroot\lib\bootstrap-colorpicker\css\bootstrap-colorpicker.min.css.map" />
     <None Include="wwwroot\lib\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
     <None Include="wwwroot\lib\bootstrap-colorpicker\js\bootstrap-colorpicker.min.js" />
-    <None Include="wwwroot\lib\bootstrap-select\css\bootstrap-select.css.map" />
     <None Include="wwwroot\lib\bootstrap-select\js\bootstrap-select.js" />
     <None Include="wwwroot\lib\bootstrap-select\js\bootstrap-select.js.map" />
     <None Include="wwwroot\lib\bootstrap-select\js\bootstrap-select.min.js" />
@@ -265,7 +264,6 @@
     <None Include="wwwroot\lib\font-awesome\_npmignore" />
     <None Include="wwwroot\lib\jquery-filedrop\core.js" />
     <None Include="wwwroot\lib\jquery-filedrop\upload.js" />
-    <None Include="wwwroot\lib\multi-select\js\jquery.multi-select.js" />
     <None Include="wwwroot\lib\sweetalert\.gitignore" />
     <None Include="wwwroot\lib\sweetalert\dist\sweetalert-dev.js" />
     <None Include="wwwroot\lib\sweetalert\dist\sweetalert.min.js" />

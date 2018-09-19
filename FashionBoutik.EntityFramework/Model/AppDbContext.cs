@@ -10,6 +10,8 @@ namespace FashionBoutik.Data
     {
         public DbSet<UsersGroup> UsersGroup { get; set; }
 
+        public DbSet<UserToUsersGroup> UsersToUsersGroup { get; set; }
+
         public DbSet<Address> Address { get; set; }
 
         public DbSet<Currency> Currencies { get; set; }
@@ -44,6 +46,10 @@ namespace FashionBoutik.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            //Special configuration for supplemantary table UsersToUsersGroup
+            modelBuilder.Entity<UsersGroup>().HasKey(x => x.Id);
+            modelBuilder.Entity<UserToUsersGroup>().HasKey(x => new { x.UserId, x.UsersGroupId });
 
             modelBuilder.ApplyConfiguration(new UserMapping());
             modelBuilder.ApplyConfiguration(new UsersGroupMapping());

@@ -11,8 +11,8 @@
     <div class="panel-body">
         <div class="btn-group">
             <a id="createEditUserModal" class="btn btn-primary"
-               data-toggle="modal" data-target="#modal-action"
-               asp-area="Admin" asp-action="Add" asp-controller="User" >
+               data-toggle="modal" data-target="#modal-action"  data-backdrop="static" data-keyboard="false"
+               asp-area="Admin" asp-action="Add" asp-controller="User">
                 <i class="glyphicon glyphicon-plus"></i>  Add User
             </a>
         </div>
@@ -20,30 +20,32 @@
         <table class="table table-bordered table-striped table-condensed">
             <thead>
                 <tr>
-                    <th>Name</th>
+                    <th>UserName</th>
                     <th>Email</th>
+                    <td>Role</td>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>@item.Name</td>
-                        <td>@item.Email</td>
-                        <td>
-                            <a id="editUserModal" class="btn btn-info"
-                               data-toggle="modal" data-target="#modal-action"
-                               asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-id="@item.Id">
-                                <i class="glyphicon glyphicon-pencil"></i>  Edit
-                            </a> | 
-                            <a id="deleteUserModal" class="btn btn-danger"
-                               data-toggle="modal" data-target="#modal-action"
-                               asp-area="Admin"  asp-controller="User" asp-action="Delete" asp-route-id="@item.Id">
-                                <i class="glyphicon glyphicon-trash"></i>  Delete
-                            </a>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>@item.UserName</td>
+                    <td>@item.Email</td>
+                    <td>@item.RoleName</td>
+                    <td>
+                        <a id="editUserModal" class="btn btn-info"
+                           data-toggle="modal" data-target="#modal-action" data-backdrop="static" data-keyboard="false"
+                           asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-id="@item.Id">
+                            <i class="glyphicon glyphicon-pencil"></i>  Edit
+                        </a> |
+                        <a id="deleteUserModal" class="btn btn-danger"
+                           data-toggle="modal" data-target="#modal-action"
+                           asp-area="Admin" asp-controller="User" asp-action="Delete" asp-route-id="@item.Id">
+                            <i class="glyphicon glyphicon-trash"></i>  Delete
+                        </a>
+                    </td>
+                </tr>
                 }
             </tbody>
         </table>

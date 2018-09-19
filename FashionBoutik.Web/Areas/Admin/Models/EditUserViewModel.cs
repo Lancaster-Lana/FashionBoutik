@@ -12,18 +12,25 @@ namespace FashionBoutik.Models
         public string Name { get; set; }
 
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Display(Name = "Role")]
         public int ApplicationRoleId { get; set; }
-        public List<Role> ApplicationRoles { get; set; }
+        public IEnumerable<RoleViewModel> AllAppRoles { get; set; }
 
-        [Display(Name = "UsersGroup")]
-        public int UsersGroupId { get; set; }
+        //[Display(Name = "UsersGroup")]
+        //public int UsersGroupId { get; set; }
 
         /// <summary>
-        /// TODO:
+        /// The users groups the user belong to
         /// </summary>
-        public IList<UsersGroupModel> UsersGroups { get; set; }    
+        public IEnumerable<int> UsersGroupsIds { get; set; }
+
+        /// <summary>
+        /// All users groups
+        /// </summary>
+        public IEnumerable<UsersGroupModel> AllUsersGroups { get; set; }
+
     }
 }

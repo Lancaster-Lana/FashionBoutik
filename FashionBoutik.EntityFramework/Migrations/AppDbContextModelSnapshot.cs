@@ -457,9 +457,26 @@ namespace FashionBoutik.EntityFramework.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
+                    b.Property<int?>("UserId");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("UsersGroups");
+                });
+
+            modelBuilder.Entity("FashionBoutik.Entities.UserToUsersGroup", b =>
+                {
+                    b.Property<int>("UserId");
+
+                    b.Property<int>("UsersGroupId");
+
+                    b.HasKey("UserId", "UsersGroupId");
+
+                    b.HasIndex("UsersGroupId");
+
+                    b.ToTable("UsersToUsersGroup");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -634,8 +651,27 @@ namespace FashionBoutik.EntityFramework.Migrations
 
             modelBuilder.Entity("FashionBoutik.Entities.User", b =>
                 {
-                    b.HasOne("FashionBoutik.Entities.UsersGroup", "UsersGroup")
+                    b.HasOne("FashionBoutik.Entities.UsersGroup")
                         .WithMany("Users")
+                        .HasForeignKey("UsersGroupId");
+                });
+
+            modelBuilder.Entity("FashionBoutik.Entities.UsersGroup", b =>
+                {
+                    b.HasOne("FashionBoutik.Entities.User")
+                        .WithMany("UsersGroups")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("FashionBoutik.Entities.UserToUsersGroup", b =>
+                {
+                    b.HasOne("FashionBoutik.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FashionBoutik.Entities.UsersGroup", "UsersGroup")
+                        .WithMany()
                         .HasForeignKey("UsersGroupId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

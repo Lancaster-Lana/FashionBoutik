@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+
 using FashionBoutik.EntityFramework.Repository;
 using FashionBoutik.Models;
 using FashionBoutik.Core.Mappers;
@@ -13,25 +15,51 @@ namespace FashionBoutik.DomainServices
     /// </summary>
     public class UsersGroupManager : DomainService, IUsersGroupManager
     {
+        private readonly IUsersGroupRepository _repository;
+        private readonly IUserToUsersGroupRepository _userToGroupRepository;
+        private readonly UserManager<User> _userManager;
+
         #region ctor
 
-        private readonly IUsersGroupRepository _repository;
-
-        public UsersGroupManager(IUsersGroupRepository repository)
+        public UsersGroupManager(
+            UserManager<User> userManager, 
+            IUserToUsersGroupRepository userToGroupRepository,
+            IUsersGroupRepository repository)
         {
+            _userManager = userManager;
             _repository = repository;
+            _userToGroupRepository = userToGroupRepository;
         }
 
         public async Task<IList<UsersGroupModel>> GetAllUsersGroups()
         {
-            var list = (await _repository.GetAll())?.MapTo<UsersGroupModel>();
-            return list.ToList();
+            var groupsWithUsers = (await _repository.GetAllIncluding("Users")).ToList();
+            var list = groupsWithUsers?.MapTo<UsersGroupModel>();
+            return list;
         }
+
+        //public async Task<IList<UsersGroupModel>> GetAllUsersInGroups()
+        //{
+        //    var list = (await _repository.GetAll())?.MapTo<UserInGroupModel>();
+        //    return list.ToList();
+        //}
+
         public async Task<UsersGroupModel> GetUsersGroupById(int id)
         {
             var entity = await _repository.GetById(id);
-
             return entity?.MapTo<UsersGroupModel>();
+        }
+
+        //public async Task<IList<UsersGroupModel>> GetUserInGroups(int userId)
+        //{
+        //    var userGroups = await _userToGroupRepository.GetGroupsByUserId(userId);
+        //    return userGroups.Select(uTg => uTg.UsersGroup) .MapTo<UsersGroupModel>();
+        //}
+
+        public async Task<IList<int>> GetUserInGroups(int userId)
+        {
+            var userGroups = await _userToGroupRepository.GetGroupsByUserId(userId);
+            return userGroups.Select(uTg => uTg.UsersGroupId).ToList();
         }
 
         public async Task<bool> DeleteUsersGroup(int id)
@@ -51,116 +79,38 @@ namespace FashionBoutik.DomainServices
             return true;
         }
 
+        /// <summary>
+        /// Update the user memberships in groups
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="newGroupsIds"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateUserGroups(int userId, IEnumerable<int> groupsIds)
+        {
+            var oldUserGroups = await _userToGroupRepository.GetGroupsByUserId(userId);
+
+            //Remove old groups
+            var groupsToBeRemoved = oldUserGroups.Where(g => !groupsIds.Contains(g.UsersGroupId));
+            foreach (var remGroup in groupsToBeRemoved)
+            {
+                await _userToGroupRepository.Delete(remGroup);
+            }
+
+            //Add only a new membership User=>UserGroup
+            var newGroupsIds = groupsIds.Except(oldUserGroups.Select(uGrp => uGrp.UsersGroupId));
+
+            foreach (var groupsId in newGroupsIds)
+            {
+                //Create user group membership
+                var userToGrp = new UserToUsersGroup { UserId = userId, UsersGroupId = groupsId };
+                await _userToGroupRepository.Insert(userToGrp);
+            };
+
+            await _repository.SaveChanges();
+
+            return true;
+        }
+
         #endregion
-
-
-        /*
-[HttpGet]
-public IActionResult Index()
-{
-    var model = _db.UsersGroup.Select(gr => 
-       new UserGroupListViewModel {
-               Id = gr.Id,
-               Name = gr.Name,
-               Description = gr.Description,
-               NumberOfUsers = gr.Users.Count()
-       }
-    ).ToList();
-
-    return View(model);
-}
-
-/// <summary>
-/// Start add\edit user group
-/// </summary>
-/// <param name="id"></param>
-/// <returns></returns>
-[HttpGet("AddEditUsersGroup")]
-public async Task<IActionResult> AddEditUsersGroup(int id)
-{
-    var model = new UserGroupViewModel();
-    if (id > 0)
-    {
-        var usersGroup = _db.UsersGroup.FirstOrDefault( gr => gr.Id == id);
-        if (usersGroup != null)
-        {
-            model.Id = usersGroup.Id;
-            model.Name = usersGroup.Name;
-            model.Description = usersGroup.Description;
-        }
-    }
-    return PartialView(model);
-}
-
-/// <summary>
-/// Save (create or update) a user group
-/// </summary>
-/// <param name="id"></param>
-/// <param name="model"></param>
-/// <returns></returns>
-[HttpPost("AddEditUsersGroup")]
-public async Task<IActionResult> AddEditUsersGroup(UserGroupViewModel model)
-{
-    if (ModelState.IsValid)
-    {
-        bool isExist = model.Id > 0;
-        var usersGroup = isExist ? _db.UsersGroup.FirstOrDefault(gr => gr.Id == model.Id) :
-                                    new FashionBoutik.Entities.UsersGroup
-                                    {
-                                        CreatedDate = DateTime.UtcNow
-                                    };
-        usersGroup.Name = model.Name;
-        usersGroup.Description = model.Description;
-
-        if (!isExist)
-           await _db.UsersGroup.AddAsync(usersGroup);
-        else
-            _db.Entry<UsersGroup>(usersGroup).State =  Microsoft.EntityFrameworkCore.EntityState.Modified;
-
-        var result =  await _db.SaveChangesAsync();
-
-        if (result > 0)
-        {
-            return RedirectToAction("Index");
-        }
-    }
-    return View(model);
-}
-
-[HttpGet("DeleteUsersGroup")]
-public async Task<IActionResult> DeleteUsersGroup(int id)
-{
-    var usersGroup = _db.UsersGroup.FirstOrDefault(gr => gr.Id == id);
-
-    if (usersGroup != null)
-    {
-        var model = new UserGroupViewModel
-        {
-            Id = usersGroup.Id,
-            Name = usersGroup.Name
-        };
-        return PartialView(model);
-    }
-    return View("Index");
-}
-
-[HttpPost("DeleteUsersGroup")]
-public async Task<IActionResult> DeleteUsersGroup(UserGroupViewModel model)
-{
-    if (model.Id > 0)
-    {
-        var uGroup =  _db.UsersGroup.FirstOrDefault(gr => gr.Id == model.Id);
-        if (uGroup != null)
-        {
-            _db.UsersGroup.Remove(uGroup);
-            await _db.SaveChangesAsync();
-
-        }
-    }
-    //TODO: if ok ->
-    return RedirectToAction("Index");
-}
-
-*/
     }
 }

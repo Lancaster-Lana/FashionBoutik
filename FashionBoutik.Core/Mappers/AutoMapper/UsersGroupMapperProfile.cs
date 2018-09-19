@@ -6,19 +6,23 @@ namespace FashionBoutik.Mappers
 {
     public class UsersGroupMapperProfile : Profile
     {
-       public UsersGroupMapperProfile()
+        public UsersGroupMapperProfile()
         {
             this.CreateMap<UsersGroupModel, UsersGroup>()
                     .ForMember(x => x.Id, opts => opts.MapFrom(source => source.Id))
+                    .ForMember(x => x.CreatedDate, opts => opts.MapFrom(source => source.CreatedDate))
                     .ForMember(x => x.Name, opts => opts.MapFrom(source => source.Name))
                     .ForMember(x => x.Description, opts => opts.MapFrom(source => source.Description))
-                    .ForMember(x => x.Users, opts => opts.MapFrom(source => source.Users));
+                    .ForMember(x => x.Users, opts => opts.MapFrom(source => source.Users))
+                    ;
 
             this.CreateMap<UsersGroup, UsersGroupModel>()
                     .ForMember(x => x.Id, opts => opts.MapFrom(source => source.Id))
+                    .ForMember(x => x.CreatedDate, opts => opts.MapFrom(source => source.CreatedDate))
                     .ForMember(x => x.Name, opts => opts.MapFrom(source => source.Name))
                     .ForMember(x => x.Description, opts => opts.MapFrom(source => source.Description))
-                    .ForMember(x => x.Users, opts => opts.MapFrom(source => source.Users));
+                    .ForMember(x => x.Users, opts => opts.MapFrom(source => source.Users))
+                    ;
         }
     }
 }

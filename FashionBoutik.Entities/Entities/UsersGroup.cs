@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 
 namespace FashionBoutik.Entities
 {
@@ -8,7 +6,7 @@ namespace FashionBoutik.Entities
     {
         public string Description { get; set; }
 
-        [ForeignKey("UsersGroupId")]
+        //[ForeignKey("UsersGroupId")]
         public virtual ICollection<User> Users { get; set; } = new List<User>();
     }
 }

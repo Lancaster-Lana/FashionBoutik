@@ -1,6 +1,8 @@
 ﻿
 using FashionBoutik.Entities;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FashionBoutik.Models
 {
@@ -8,14 +10,13 @@ namespace FashionBoutik.Models
     {
         public int Id { get; set; }
 
-        //public int? ParentId { get; set; }
-
+        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public ICollection<User> Users { get; set; } = new List<User>();
+        public DateTime CreatedDate { get; set; }
 
-        //public ICollection<UserModel> Users { get; set; } = new List<UserModel>();
+        public ICollection<User> Users { get; set; } = new List<User>();
     }
 }

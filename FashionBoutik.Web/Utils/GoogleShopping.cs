@@ -56,7 +56,7 @@ public static class GoogleShopping
             string baseUrl = domain.web_address;
 
             // Write the start of the document
-            xmlTextWriter.WriteStartDocument();
+            xmlTextWriter.WriteStartDocument(); 
 
             // Write the rss tag
             xmlTextWriter.WriteStartElement("rss");

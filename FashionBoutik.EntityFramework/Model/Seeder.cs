@@ -26,6 +26,14 @@ namespace DataFashionBoutik.Data
                 //    await dbContext.SaveChangesAsync();
                 //}
 
+                if (!dbContext.UsersGroup.Any())
+                {
+                    dbContext.UsersGroup.AddRange(
+                        GetPreconfiguredUsersGroups());
+
+                    await dbContext.SaveChangesAsync();
+                }
+
                 if (!dbContext.Currencies.Any())
                 {
                     dbContext.Currencies.AddRange(
@@ -49,6 +57,7 @@ namespace DataFashionBoutik.Data
 
                     await dbContext.SaveChangesAsync();
                 }
+
             }
             catch (Exception ex)
             {
@@ -94,7 +103,18 @@ namespace DataFashionBoutik.Data
             {
                 new Brand() { Name = "Gucci"},
                 new Brand() { Name = "Armani" },
-                new Brand() { Name = "Anre" },
+                new Brand() { Name = "Vovk" },
+                new Brand() { Name = "Vovk" },
+            };
+        }
+
+        static IEnumerable<UsersGroup> GetPreconfiguredUsersGroups()
+        {
+            return new List<UsersGroup>()
+            {
+                new UsersGroup() { Name = "Designers"},
+                new UsersGroup() { Name = "VIP Clients" },
+                new UsersGroup() { Name = "Admins" },
             };
         }
     }

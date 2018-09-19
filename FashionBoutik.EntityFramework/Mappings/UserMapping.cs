@@ -11,6 +11,7 @@
             builder.Property(x => x.UserName).IsRequired();
             builder.Property(x => x.PasswordHash);
             builder.Property(x => x.Email);
+            builder.HasMany(x => x.UsersGroups);//.WithOne(v=>v.Users);
             builder.ToTable("Users");
         }
     }

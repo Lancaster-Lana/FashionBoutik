@@ -9,40 +9,51 @@ using FashionBoutik.Models;
 using FashionBoutik.DomainServices;
 using FashionBoutik.Controllers;
 using FashionBoutik.Core.Mappers;
+using Microsoft.EntityFrameworkCore;
 
 namespace FashionBoutik.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class UserController : BaseController
     {
-        private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly IUsersGroupManager _userGroupManager;
+        private readonly UserManager<User> _userManager;
 
-        public UserController(UserManager<User> userManager, 
-            RoleManager<Role> roleManager, 
-            IUsersGroupManager userGroupManager)
+        private readonly ICachManager _cachManager;
+
+        static IEnumerable<UsersGroupModel> _allUsersGroups;
+        private async Task<IEnumerable<UsersGroupModel>> GetAllUsersGroups()
+        {
+            if (_allUsersGroups == null)
+                _allUsersGroups = await _cachManager.GetAllUsersGroups();
+            return _allUsersGroups;
+        }
+
+        public UserController(ICachManager cachManager,
+            IUsersGroupManager userGroupManager,
+            RoleManager<Role> roleManager,
+            UserManager<User> userManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _userGroupManager = userGroupManager;
+            _cachManager = cachManager;
         }
 
         #region Methods
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var model = new List<UserListViewModel>();
             model = _userManager.Users.Select(u => new UserListViewModel
             {
                 Id = u.Id,
-                Name = u.UserName, //TODO:
-                UserName = u.UserName,
+                UserName = u.UserName, //Name = u.FirstName + " " + u.LastName,
                 Email = u.Email,
                 //EmailConfirmed = u.EmailConfirmed,
                 //RoleName = u.UsersRoles != null ? u.Role.Name : "",
-                UsersGroupName = u.UsersGroup != null ? u.UsersGroup.Name : ""
             }).ToList();
             return View(model);
         }
@@ -53,7 +64,7 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
             var model = new UserViewModel
             {
                 ApplicationRoles = _roleManager.Roles?.ToList(),
-                UsersGroups = await _userGroupManager.GetAllUsersGroups()
+                AllUsersGroups = await _cachManager.GetAllUsersGroups() //_userGroupManager.GetAllUsersGroups()
             };
             return PartialView(model);
         }
@@ -63,54 +74,75 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                //var user = model.MapTo<User>();
-                var user = new User
+                //1. check if user with such name exists
+                var existingUser = await _userManager.FindByNameAsync(model.Name);
+                if (existingUser != null)
                 {
-                    NormalizedUserName = model.Name,
-                    UserName = model.UserName,
-                    Email = model.Email,  EmailConfirmed = false,
-                    UsersGroupId = model.UsersGroupId,
-                    //PhoneNumber = model.PhoneNumber,
-                    //PasswordHash
-                };
-                IdentityResult result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    var applicationRole = await _roleManager.FindByIdAsync(model.ApplicationRoleId.ToString());
-                    if (applicationRole != null)
-                    {
-                        IdentityResult roleResult = await _userManager.AddToRoleAsync(user, applicationRole.Name);
-                        if (roleResult.Succeeded)
-                        {
-                            return RedirectToAction("Index");
-                        }
-                    }
+                    var errorsList = "The user with such name exists already";
+                    AddError(errorsList);
                 }
                 else
                 {
-                    var errorsList = string.Join(", ", result.Errors.Select(i => i.Description));
-                    AddError(errorsList);
+                    //Create a new user 
+                    var user = new User
+                    {
+                        NormalizedUserName = model.Name,
+                        UserName = model.UserName,
+                        Email = model.Email,
+                        EmailConfirmed = false,
+                        //UsersGroups = (await GetAllUsersGroups()).Where(g => model.UsersGroupsIds.Contains(g.Id))?.MapTo<UsersGroup>(),
+                        //PhoneNumber = model.PhoneNumber,
+                        //PasswordHash
+                    };
+                    IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        //Add user to specific role
+                        var applicationRole = await _roleManager.FindByIdAsync(model.ApplicationRoleId.ToString());
+                        if (applicationRole != null)
+                        {
+                            IdentityResult roleResult = await _userManager.AddToRoleAsync(user, applicationRole.Name);
+                            if (roleResult.Succeeded)
+                            {
+                                return RedirectToAction("Index");
+                            }
+                        }
+
+                        //Update user groups (add user to some groups)
+                        await _userGroupManager.UpdateUserGroups(user.Id, model.UsersGroupsIds);
+
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        var errorsList = string.Join(", ", result.Errors.Select(i => i.Description));
+                        AddError(errorsList);
+                    }
                 }
             }
             return PartialView(model);//with errors
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> Edit(int id)
         {
             var model = new EditUserViewModel();
-            model.ApplicationRoles = _roleManager.Roles.ToList();
-            model.UsersGroups = await _userGroupManager.GetAllUsersGroups();
+            model.AllAppRoles = _roleManager.Roles.MapTo<RoleViewModel>();
+            model.AllUsersGroups = await GetAllUsersGroups();
 
-            if (!String.IsNullOrEmpty(id))
+            if (id > 0)
             {
-                var user = await _userManager.FindByIdAsync(id);
+                //await context.Entry(user).Reference(x => x.Address).LoadAsync();
+                var user = await _userManager.Users.Include(x => x.UsersGroups)
+                    .SingleAsync(x => x.Id == id);//_userManager.FindByIdAsync(id.ToString());
                 if (user != null)
                 {
                     model.Id = user.Id;
                     model.Name = user.UserName;
                     model.Email = user.Email;
-                    model.UsersGroupId = user.UsersGroupId.HasValue ? user.UsersGroupId.Value : -1;//TODO: set user group
+
+                    //groups to which user belongs to
+                    model.UsersGroupsIds = (await _userGroupManager.GetUserInGroups(user.Id));
 
                     //TODO: selected user roles (TODO: to be selected as checkboxes)
                     var userRoles = await _userManager.GetRolesAsync(user);
@@ -127,17 +159,19 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByIdAsync(model.Id.ToString());
-                if (user != null)
+                if (model.Id > 0)
                 {
                     user.Name = user.UserName = model.Name;
                     user.Email = model.Email;
-                    user.UsersGroupId = model.UsersGroupId; //Update users group
 
-                    var existingUserRoles = await _userManager.GetRolesAsync(user);
+                    //1. Update users groups
+                    await _userGroupManager.UpdateUserGroups(model.Id, model.UsersGroupsIds);
 
                     IdentityResult result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {
+                        //2. Update user role
+                        var existingUserRoles = await _userManager.GetRolesAsync(user);
                         //Remove old user role
                         if (existingUserRoles.Any())
                         {
@@ -152,7 +186,7 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
 
                         //Update role of the user //if (roleResult.Succeeded)
                         var applicationRole = await _roleManager.FindByIdAsync(model.ApplicationRoleId.ToString());
-                        if (applicationRole != null)
+                        if (applicationRole != null && !await _userManager.IsInRoleAsync(user, applicationRole.Name))
                         {
                             IdentityResult newRoleResult = await _userManager.AddToRoleAsync(user, applicationRole.Name);
                             if (newRoleResult.Succeeded)
@@ -161,10 +195,17 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
                             }
                         }
 
+                        //Success - redirect to list of all users
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        var errorsList = string.Join(", ", result.Errors.Select(i => i.Description));
+                        AddError(errorsList);
                     }
                 }
             }
-            return View(model); //with errors
+            return View(model); //show current view with errors
         }
 
         [HttpGet]
@@ -184,7 +225,7 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
                     return PartialView("ConfirmDelete", model);
                 }
             }
-            AddError("Cannot delete empty user !");
+            AddError("Cannot delete an empty user !");
             return View();
         }
 
@@ -201,30 +242,16 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
                     {
                         return RedirectToAction("Index");
                     }
+                    else
+                    {
+                        var errorsList = string.Join(", ", result.Errors.Select(i => i.Description));
+                        AddError(errorsList);
+                    }
                 }
             }
             //Display view with errors
             return View();
         }
-
-        /*
-
-        [HttpPost]
-        public async Task<IActionResult> ConfirmDelete(User user)
-        {
-            if (user != null)
-            {
-
-                IdentityResult result = await _userManager.DeleteAsync(user);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
-            }
-
-            AddError("Cannot delete empty user");
-            return View();
-        }*/
 
         #endregion
     }

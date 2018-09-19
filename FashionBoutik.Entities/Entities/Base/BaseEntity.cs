@@ -13,4 +13,9 @@ namespace FashionBoutik.Entities
 
         public DateTime CreatedDate { get; set; }
     }
+
+    public abstract class BaseEntity : BaseEntity<int>
+    {
+
+    }
 }

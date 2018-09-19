@@ -5,3 +5,6 @@
 /.vs/FashionBoutik/v15/Server/sqlite3
 /.vs/FashionBoutik/v15/.suo
 *.cache
+/FashionBoutik.Core/bin/Debug/netcoreapp2.0
+/FashionBoutik.Core/obj/Debug/netcoreapp2.0
+/FashionBoutik.Entities/bin/Debug/netcoreapp2.0

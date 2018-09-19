@@ -96,10 +96,16 @@ namespace FashionBoutik.Web
             //});
 
             //REPOS and services   
+            services.AddScoped<DbContext, AppDbContext>();
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
 
-            services.AddTransient<IUsersGroupRepository, UsersGroupRepository>();
-            services.AddTransient<IUsersGroupManager, UsersGroupManager>();
+            services.AddScoped<ICachManager, CachManager>();
+
+            services.AddScoped<IUserToUsersGroupRepository, UserToUsersGroupRepository>(); //supplementary entity
+            services.AddScoped<IUsersGroupRepository, UsersGroupRepository>();
+            services.AddScoped<IUsersGroupManager, UsersGroupManager>();
 
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICategoryManager, CategoryManager>();
@@ -120,7 +126,6 @@ namespace FashionBoutik.Web
 
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductManager, ProductManager>();
-            //services.AddScoped<IProductManager, CachedProductManager>();
 
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IOrderManager, OrderManager>();
@@ -169,7 +174,7 @@ namespace FashionBoutik.Web
             {
                 //options.OutputFormatters.Add(new PdfFormatter());
             });
-
+            
             services.AddSwaggerGen(options =>
             {
                 options.DescribeAllEnumsAsStrings();

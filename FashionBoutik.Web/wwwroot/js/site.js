@@ -10,56 +10,62 @@ $(function () {
         $(this).removeData('bs.modal');
     });
 
-    //TODO: for correct client-validation in modal window
-    $('body').on('shown.bs.modal', function () {
-                /*var $form = $('form'); //modal - dialog
+    $('body').on('shown.bs.modal', function (e) {
+        $.validator.setDefaults({ ignore: ".ignore" });
 
+        var $modal = $(this).find('.modal-dialog'); //$('form');
 
-        $form.submit(function (e) {
-            e.preventDefault();
-            var form = $('.modal-dialog form');
-            form.validate({
-                rules: {
-                    name: "required",
-                    email: {
-                        required: true,
-                        email: true
+        $modal.submit(function (e) {
+            var form = $(this).find('form');
+
+            //$(this).find('form[data-validate]').enableClientSideValidations();
+
+            //prevent submitting if validation errors
+            if (form) {
+                /*e.preventDefault();
+                $(form).validate({
+                    ignore: ".ignore",
+                    rules: {
+                        name: "required",
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        phone: {
+                            required: true,
+                            phone: true
+                        }
                     },
-                    phone: {
-                        required: true,
-                        phone: true
+                    messages: {
+                        name: "Please let us know who you are.",
+                        email: "A valid email will help us get in touch with you.",
+                        phone: "Please provide a valid phone number."
+                    },
+                     submitHandler: function (form) {
+                         $.ajax({
+                             url: this.action,
+                             type: this.method,
+                             data: $(this).serialize(),
+                             success: function (result) {
+                                 //if (result.success) {
+                                 $(form).modal('hide');
+                                 location.reload(); //Refresh
+                             }
+                         });
                     }
-                },
-                messages: {
-                    name: "Please let us know who you are.",
-                    email: "A valid email will help us get in touch with you.",
-                    phone: "Please provide a valid phone number."
-                }
-            });
-            if (!form.valid()) {
-                return;
+                });*/
             }
-            else {
-                 $.ajax({
-                     url: this.action,
-                     type: this.method,
-                     data: $(this).serialize(),
-                     success: function (result) {
- 
-                         //if (result.success) {
-                             $(form).modal('hide');
-                             location.reload(); //Refresh
-                         //} else {
-                             //$('#myModalContent').html(result);
-                             //bindForm();
-                         //}
-                     }
-                 });
-                 return false;
-             };
-        });*/
-    });
+        });
 
+        //init multi-select dropdown in opened modal window 
+        (function () {
+            setTimeout(function () {
+                $('.multi-select').each(function () {
+                    $(this).multiselect({ selectableOptgroup: true });
+                });
+            }, 100);
+        })();
+    });
 
     //2. Check type of board
     if ($('[name="dashboard"]').val() == "admin") {
@@ -82,6 +88,7 @@ if (typeof jQuery === "undefined") {
     throw new Error("jQuery plugins need to be before this file");
 }
 
+/* Init Left\Right sliding menus */
 $.Board = {};
 $.Board.options = {
     colors: {
@@ -232,7 +239,6 @@ $.Board.leftSideBar = {
     }
 };
 
-/* Right Sidebar - Function   */
 $.Board.rightSideBar = {
     activate: function () {
         var _this = this;
@@ -255,13 +261,13 @@ $.Board.rightSideBar = {
     }
 }
 
-//$.Cart = {};
+//Shopping card control $.Cart = {};
 var cart = (function ($) {
     this.cartItems = [];
     var productsOffset = 3;
     var theme,
         onCart = false,
-       
+
         totalPrice = 0;
     theme = $.jqx.theme;
 
@@ -384,7 +390,7 @@ var cart = (function ($) {
         addGridRow(cartItem);
         if (cartItem.Product && cartItem.Product.PricePerUnit)
             updatePrice(cartItem.Product.PricePerUnit.Value); //??
-    };  
+    };
     //Add and render item, if D&D selected product
     function addItem(name, price, currency) {
         var index = getItemIndex(name);
@@ -409,7 +415,7 @@ var cart = (function ($) {
                         value: price,
                         currency: { symbol: currency }
                     },
-                   
+
                 },
                 remove: '<div style="text-align: left; cursor: pointer; width: 23px;"' + 'id="draggable-demo-row-' + id + '">X</div>'
             };
@@ -430,7 +436,7 @@ var cart = (function ($) {
         if (!currency)
             currency = '$';
 
-        $('#total').html(currency +' ' + totalPrice);
+        $('#total').html(currency + ' ' + totalPrice);
     };
     function addGridRow(row) {
         $("#jqxgrid").jqxGrid('addrow', null, row);
@@ -525,7 +531,7 @@ var cart = (function ($) {
             $(elem).on('dragEnd', function (event) {
                 $('#cart').css('border', '2px dashed #aaa');
                 if (onCart) {
-                    addItem( event.args.name, event.args.price, event.args.unit);
+                    addItem(event.args.name, event.args.price, event.args.unit);
 
                     onCart = false;
 

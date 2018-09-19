@@ -6,7 +6,7 @@
 
       "wwwroot/lib/bootstrap-colorpicker/css/bootstrap-colorpicker.css",
       "wwwroot/lib/bootstrap-select/css/bootstrap-select.css",
-      "wwwroot/lib/multi-select/css/multi-select.css",
+      "wwwroot/lib/multi-select/css/multiselect.css",
 
       "wwwroot/lib/jquery-filedrop/upload.css",
       "wwwroot/lib/dropzone/dropzone.css",
@@ -29,7 +29,7 @@
 
       "wwwroot/lib/bootstrap-colorpicker/css/bootstrap-colorpicker.css",
       "wwwroot/lib/bootstrap-select/css/bootstrap-select.css",
-      "wwwroot/lib/multi-select/css/multi-select.css",
+      "wwwroot/lib/multi-select/css/multiselect.css",
 
       "wwwroot/lib/jquery-filedrop/upload.css",
       "wwwroot/lib/dropzone/dropzone.css",
@@ -51,7 +51,7 @@
 
       "wwwroot/lib/bootstrap-colorpicker/js/bootstrap-colorpicker.js",
       "wwwroot/lib/bootstrap-select/js/bootstrap-select.js",
-      "wwwroot/lib/multi-select/js/jquery.multi-select.js",
+      "wwwroot/lib/multi-select/js/jquery.multiselect.js",
 
       "wwwroot/lib/jquery-filedrop/core.js",
       "wwwroot/lib/jquery-filedrop/upload.js",
@@ -92,7 +92,7 @@
 
       "wwwroot/lib/bootstrap-colorpicker/js/bootstrap-colorpicker.js",
       "wwwroot/lib/bootstrap-select/js/bootstrap-select.js",
-      "wwwroot/lib/multi-select/js/jquery.multi-select.js",
+      "wwwroot/lib/multi-select/js/jquery.multiselect.js",
 
       "wwwroot/lib/jquery-filedrop/core.js",
       "wwwroot/lib/jquery-filedrop/upload.js",

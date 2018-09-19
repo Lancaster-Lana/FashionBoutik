@@ -6,7 +6,18 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "80"
+  webapplication1:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+    ports:
+      - "55665:80"
+      - "44367:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:C:\Users\ContainerUser\AppData\Roaming\ASP.NET\Https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:C:\Users\ContainerUser\AppData\Roaming\Microsoft\UserSecrets:ro
 networks:
   default:
     external:
       name: nat
+
