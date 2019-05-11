@@ -12,7 +12,7 @@ using System;
 namespace FashionBoutik.EntityFramework.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20180919150614_InitDB")]
+    [Migration("20181205163105_InitDB")]
     partial class InitDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

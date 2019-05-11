@@ -4,6 +4,8 @@ ul.slider.horizontal {
     left: 40px;
     position: relative;
     height: 500px;
+    max-width: 95%;
+    overflow-x: scroll;
     border-style: solid;
     border-color: aqua;
 }

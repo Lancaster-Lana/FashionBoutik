@@ -1,4 +1,6 @@
 ﻿using System;
+using AutoMapper;
+using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,8 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http.Features;
-using Swashbuckle.AspNetCore.Swagger;
-using AutoMapper;
 using FashionBoutik.Data;
 using FashionBoutik.Entities;
 using FashionBoutik.DomainServices;
@@ -65,7 +65,7 @@ namespace FashionBoutik.Web
             });
 
             //INIT AUTHENTICATION with social networks
-            services.AddAuthentication()
+            services.AddAuthentication()//.AddJwtBearer
                 .AddFacebook(facebookOptions =>
                 {
                     facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
@@ -101,7 +101,7 @@ namespace FashionBoutik.Web
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
 
-            services.AddScoped<ICachManager, CachManager>();
+            services.AddScoped<ICachManager, CachManager>(); //to save products
 
             services.AddScoped<IUserToUsersGroupRepository, UserToUsersGroupRepository>(); //supplementary entity
             services.AddScoped<IUsersGroupRepository, UsersGroupRepository>();
@@ -138,7 +138,7 @@ namespace FashionBoutik.Web
             services.AddScoped<IEmailSender, EmailService>();
             services.AddScoped<ISmsSender, EmailService>(); //SmsSender
 
-            //Configuration Redis cash
+            //Configuration Redis cash (then iject into Controller constructor as IDistributedCache )
             //services.AddDistributedRedisCache(options =>
             //{
             //    options.Configuration = Configuration.GetConnectionString("Redis");
@@ -146,7 +146,6 @@ namespace FashionBoutik.Web
             //});
 
             services.AddDistributedMemoryCache();
-
             services.AddMemoryCache();
 
             //INIT Session (also can be accessed by DI with IHttpContextAccessor in non-controller class)
@@ -244,7 +243,7 @@ namespace FashionBoutik.Web
 
             //app.UseEmbeddedFiles();
 
-            app.UseAuthentication(); //app.UseIdentity();
+            app.UseAuthentication();
 
             // IMPORTANT: This session call MUST go before UseMvc()
 

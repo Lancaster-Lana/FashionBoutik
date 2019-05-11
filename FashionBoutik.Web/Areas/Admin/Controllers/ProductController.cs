@@ -4,13 +4,13 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
 //using Microsoft.ApplicationServer.Caching;
 using FashionBoutik.DomainServices;
 using FashionBoutik.Models;
 using FashionBoutik.Controllers;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.AspNetCore.Http;
 
 namespace FashionBoutik.Web.Areas.Admin.Controllers
 {
@@ -21,7 +21,7 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
         //private readonly CachedProductManager _cachManager;
 
         private readonly IMemoryCache _cache;
-        private IHttpContextAccessor _context; //TODO: can be used instead of MemoryCache
+        private readonly IHttpContextAccessor _context; //TODO: can be used instead of MemoryCache
 
         public ProductController(IProductManager productManager, IMemoryCache cache, 
             IHttpContextAccessor context) : base(productManager)
@@ -289,7 +289,6 @@ namespace FashionBoutik.Web.Areas.Admin.Controllers
             }
             return Json(true);//Json(new AjaxResponse(true));
         }
-
 
         /// <summary>
         /// Returns image from bytes array (saved in DB) 
