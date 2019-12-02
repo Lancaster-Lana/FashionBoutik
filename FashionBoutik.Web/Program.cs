@@ -1,11 +1,10 @@
 ﻿using System;
+using FashionBoutik.EF.DBModel;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Debug;
-using DataFashionBoutik.Data;
-using FashionBoutik.Data;
 
 namespace FashionBoutik.Web
 {

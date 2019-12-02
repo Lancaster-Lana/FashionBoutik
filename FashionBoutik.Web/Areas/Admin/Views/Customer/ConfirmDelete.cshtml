@@ -3,7 +3,7 @@
 
 @using (Html.BeginForm("ConfirmDelete", "Customer", new { area = "Admin", controller = "Customer", id = Model.Id }, FormMethod.Post, true, new { enctype = "multipart/form-data" }))
 {
-    @Html.Partial("_ModalHeader", new ModalHeader { Heading = "Delete customer" })
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = "Delete customer" })
 
 <div class="modal-body form-horizontal">
     Are you want to delete retailer "@Model.Name"?

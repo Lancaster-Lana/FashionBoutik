@@ -37,8 +37,6 @@ namespace FashionBoutik.Controllers
             return View(viewModel);
         }
 
-
-
         [HttpGet]
         public IActionResult Add()
         {

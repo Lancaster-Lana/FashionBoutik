@@ -1,0 +1,14 @@
+F:\MY\! GIT\FashionBoutik\FashionBoutik.EF\bin\Debug\netcoreapp2.2\FashionBoutik.EF.deps.json
+F:\MY\! GIT\FashionBoutik\FashionBoutik.EF\bin\Debug\netcoreapp2.2\FashionBoutik.EF.dll
+F:\MY\! GIT\FashionBoutik\FashionBoutik.EF\bin\Debug\netcoreapp2.2\FashionBoutik.EF.pdb
+F:\MY\! GIT\FashionBoutik\FashionBoutik.EF\bin\Debug\netcoreapp2.2\FashionBoutik.Core.dll
+F:\MY\! GIT\FashionBoutik\FashionBoutik.EF\bin\Debug\netcoreapp2.2\FashionBoutik.Entities.dll
+F:\MY\! GIT\FashionBoutik\FashionBoutik.EF\bin\Debug\netcoreapp2.2\FashionBoutik.Core.pdb
+F:\MY\! GIT\FashionBoutik\FashionBoutik.EF\bin\Debug\netcoreapp2.2\FashionBoutik.Entities.pdb
+F:\MY\! GIT\FashionBoutik\FashionBoutik.EF\obj\Debug\netcoreapp2.2\FashionBoutik.EF.csprojAssemblyReference.cache
+F:\MY\! GIT\FashionBoutik\FashionBoutik.EF\obj\Debug\netcoreapp2.2\FashionBoutik.EF.csproj.CoreCompileInputs.cache
+F:\MY\! GIT\FashionBoutik\FashionBoutik.EF\obj\Debug\netcoreapp2.2\FashionBoutik.EF.AssemblyInfoInputs.cache
+F:\MY\! GIT\FashionBoutik\FashionBoutik.EF\obj\Debug\netcoreapp2.2\FashionBoutik.EF.AssemblyInfo.cs
+F:\MY\! GIT\FashionBoutik\FashionBoutik.EF\obj\Debug\netcoreapp2.2\FashionBoutik.EF.csproj.CopyComplete
+F:\MY\! GIT\FashionBoutik\FashionBoutik.EF\obj\Debug\netcoreapp2.2\FashionBoutik.EF.dll
+F:\MY\! GIT\FashionBoutik\FashionBoutik.EF\obj\Debug\netcoreapp2.2\FashionBoutik.EF.pdb

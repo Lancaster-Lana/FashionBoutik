@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FashionBoutik.EntityFramework", "FashionBoutik.EntityFramework\FashionBoutik.EntityFramework.csproj", "{5F894A1B-D6B4-4489-9078-52CE1FCEF24B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FashionBoutik.Web", "FashionBoutik.Web\FashionBoutik.Web.csproj", "{0369EEB9-0721-4ED6-A4BC-1415863A5B1D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{613DB35A-5540-4EE7-BB71-BDFE4494489F}"
@@ -17,16 +15,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FashionBoutik.Core", "Fashi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FashionBoutik.Entities", "FashionBoutik.Entities\FashionBoutik.Entities.csproj", "{190D2F29-FBED-47AC-A7C2-40B92C5E7023}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FashionBoutik.EF", "FashionBoutik.EF\FashionBoutik.EF.csproj", "{47BF2B80-E3FD-4E12-9D66-AF126B57568A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5F894A1B-D6B4-4489-9078-52CE1FCEF24B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F894A1B-D6B4-4489-9078-52CE1FCEF24B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F894A1B-D6B4-4489-9078-52CE1FCEF24B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F894A1B-D6B4-4489-9078-52CE1FCEF24B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0369EEB9-0721-4ED6-A4BC-1415863A5B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0369EEB9-0721-4ED6-A4BC-1415863A5B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0369EEB9-0721-4ED6-A4BC-1415863A5B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,15 +35,19 @@ Global
 		{190D2F29-FBED-47AC-A7C2-40B92C5E7023}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{190D2F29-FBED-47AC-A7C2-40B92C5E7023}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{190D2F29-FBED-47AC-A7C2-40B92C5E7023}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47BF2B80-E3FD-4E12-9D66-AF126B57568A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47BF2B80-E3FD-4E12-9D66-AF126B57568A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47BF2B80-E3FD-4E12-9D66-AF126B57568A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47BF2B80-E3FD-4E12-9D66-AF126B57568A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{5F894A1B-D6B4-4489-9078-52CE1FCEF24B} = {613DB35A-5540-4EE7-BB71-BDFE4494489F}
 		{0369EEB9-0721-4ED6-A4BC-1415863A5B1D} = {1684CDF5-1C37-4565-A3F9-67CF82B6C2B9}
 		{8B403D88-A37D-49C8-BE85-FF2E6EDEA500} = {8EC0CBD0-50C8-4AC7-B83D-E61795B36860}
 		{190D2F29-FBED-47AC-A7C2-40B92C5E7023} = {8EC0CBD0-50C8-4AC7-B83D-E61795B36860}
+		{47BF2B80-E3FD-4E12-9D66-AF126B57568A} = {613DB35A-5540-4EE7-BB71-BDFE4494489F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3EF251D4-C607-48C1-B3C1-5016F5F90F8C}

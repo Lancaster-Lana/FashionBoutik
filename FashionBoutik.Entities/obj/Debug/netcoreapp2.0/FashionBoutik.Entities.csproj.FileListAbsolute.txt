@@ -1,8 +1,0 @@
-F:\MY\! GIT\FashionBoutik\FashionBoutik.Entities\bin\Debug\netcoreapp2.0\FashionBoutik.Entities.deps.json
-F:\MY\! GIT\FashionBoutik\FashionBoutik.Entities\bin\Debug\netcoreapp2.0\FashionBoutik.Entities.dll
-F:\MY\! GIT\FashionBoutik\FashionBoutik.Entities\bin\Debug\netcoreapp2.0\FashionBoutik.Entities.pdb
-F:\MY\! GIT\FashionBoutik\FashionBoutik.Entities\obj\Debug\netcoreapp2.0\FashionBoutik.Entities.csproj.CoreCompileInputs.cache
-F:\MY\! GIT\FashionBoutik\FashionBoutik.Entities\obj\Debug\netcoreapp2.0\FashionBoutik.Entities.AssemblyInfoInputs.cache
-F:\MY\! GIT\FashionBoutik\FashionBoutik.Entities\obj\Debug\netcoreapp2.0\FashionBoutik.Entities.AssemblyInfo.cs
-F:\MY\! GIT\FashionBoutik\FashionBoutik.Entities\obj\Debug\netcoreapp2.0\FashionBoutik.Entities.dll
-F:\MY\! GIT\FashionBoutik\FashionBoutik.Entities\obj\Debug\netcoreapp2.0\FashionBoutik.Entities.pdb

@@ -15,7 +15,7 @@ namespace FashionBoutik.Models
 
         public string ContentType { get; set; }
 
-        public int? ProductId { get; set; }
+        //public int? ProductId { get; set; }
 
         public ProductModel Product { get; set; }
 

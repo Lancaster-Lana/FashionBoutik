@@ -3,7 +3,6 @@
   "description": "Ukrainian-French fashion",
   "main": "",
   "license": "MIT",
-  //"homepage": "uf-lana.com",
   "ignore": [
     "**/.*",
     "node_modules",

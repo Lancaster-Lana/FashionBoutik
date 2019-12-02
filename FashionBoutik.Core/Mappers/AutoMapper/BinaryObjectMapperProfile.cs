@@ -14,7 +14,7 @@ namespace FashionBoutik.Core.Mappers
                     .ForMember(x => x.CreatedDate, opts => opts.MapFrom(source => source.CreatedDate))
                     .ForMember(x => x.ContentType, opts => opts.MapFrom(source => source.ContentType))
                     .ForMember(x => x.CreatorUser, opts => opts.MapFrom(source => source.CreatorUser))
-                    .ForMember(x => x.ProductId, opts => opts.MapFrom(source => source.ProductId))
+                    //.ForMember(x => x.ProductId, opts => opts.MapFrom(source => source.ProductId))
                     .ForMember(x => x.Product, opts => opts.MapFrom(source => source.Product))
                     //.ForMember(x => x.TenantId, opts => opts.MapFrom(source => source.TenantId))
                     .ForMember(x => x.Bytes, opts => opts.MapFrom(source => source.Bytes));
@@ -25,7 +25,7 @@ namespace FashionBoutik.Core.Mappers
                     .ForMember(x => x.CreatedDate, opts => opts.MapFrom(source => source.CreatedDate))
                     .ForMember(x => x.ContentType, opts => opts.MapFrom(source => source.ContentType))
                     .ForMember(x => x.CreatorUser, opts => opts.MapFrom(source => source.CreatorUser))
-                    .ForMember(x => x.ProductId, opts => opts.MapFrom(source => source.ProductId))
+                    //.ForMember(x => x.ProductId, opts => opts.MapFrom(source => source.ProductId))
                     .ForMember(x => x.Product, opts => opts.MapFrom(source => source.Product))
                     //.ForMember(x => x.TenantId, opts => opts.MapFrom(source => source.TenantId))
                     .ForMember(x => x.Bytes, opts => opts.MapFrom(source => source.Bytes));

@@ -10,13 +10,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http.Features;
-using FashionBoutik.Data;
 using FashionBoutik.Entities;
 using FashionBoutik.DomainServices;
 using FashionBoutik.EntityFramework.Repository;
 using FashionBoutik.Core.Mappers;
 using FashionBoutik.Core;
 using FashionBoutik.Core.Messaging;
+using FashionBoutik.EF.DBModel;
 
 namespace FashionBoutik.Web
 {
