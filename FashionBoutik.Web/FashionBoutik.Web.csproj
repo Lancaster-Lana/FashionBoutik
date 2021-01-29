@@ -56,7 +56,7 @@
     <!--<PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="2.5.0" />-->    
     <PackageReference Include="WindowsAzure.Storage" Version="8.5.0" />
 
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.10" />
     <PackageReference Include="AutoMapper" version="6.2.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" version="3.2.0" />  
 
